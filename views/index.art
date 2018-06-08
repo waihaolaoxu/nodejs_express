@@ -1,0 +1,13 @@
+{{extend './layout.art'}}
+{{block 'title'}} node+express项目 {{/block}}
+{{block 'content'}} 
+    <div class="container" style="margin-top: 100px;">
+        <ul class="list-group">
+            {{each data}}
+            <li class="list-group-item">
+              {{$index+1}} {{$value}}
+            </li>
+            {{/each}}
+        </ul>
+    </div>
+{{/block}}

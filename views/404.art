@@ -1,0 +1,7 @@
+{{extend './layout.art'}}
+{{block 'title'}} 404 {{/block}}
+{{block 'content'}} 
+    <div class="text-center">
+    <img src="/static/images/404.jpg" alt="">
+    </div>
+{{/block}}
