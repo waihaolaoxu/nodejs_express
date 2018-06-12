@@ -20,38 +20,37 @@ router.get('/', function(req, res, next) {
     // });
     // console.log('22222')
     
-    // axios.get('https://api.jiajuol.com/partner/weixin/subject/subject_list.php', {
-    //         params: {
-    //             page:1,
-    //             page_size:10,
-    //             house_type:0,
-    //             house_style:0,
-    //             house_area:0,
-    //             sign:'ee391fca1528450332'
-    //         }
-    //     })
-    //     .then(function (response) {
-    //         res.render('index', { data: response.data });
-    //     })
-    //     .catch(function (error) {
-    //         // console.log(error);
-    //     });
-            // res.render('index', { data: [{tit:1,con:2}] });
+    axios.get('https://m.jiajuol.com/api/subject/subject_list.php', {
+            params: {
+                page:2,
+                limit:10,
+                house_type:0,
+                house_style:0,
+                house_area:0,
+                city:1
+            }
+        })
+        .then(function (response) {
+            res.render('index', { data: response.data.data });
+        })
+        .catch(function (error) {
+            // console.log(error);
+        });
     
-    let data = [{
-        tit:'标题22222',
-        con:'内容内容内容内容内容内容'
-    },{
-        tit:'标题',
-        con:'内容内容内容内容内容内容'
-    },{
-        tit:'标题',
-        con:'内容内容内容内容内容内容'
-    },{
-        tit:'标题',
-        con:'内容内容内容内容内容内容'
-    }]
-    res.render('index', { data: data });
+    // let data = [{
+    //     tit:'标题222233333333332',
+    //     con:'内容内容内容内容内容内容'
+    // },{
+    //     tit:'标题',
+    //     con:'内容内容内容内容内容内容'
+    // },{
+    //     tit:'标题',
+    //     con:'内容内容内容内容内容内容'
+    // },{
+    //     tit:'标题',
+    //     con:'内容内容内容内容内容内容'
+    // }]
+    // res.render('index', { data: data });
 
 
 });
