@@ -12,8 +12,12 @@
   "dependencies": {
     "art-template": "^4.12.2",
     "axios": "^0.18.0",
+    "body-parser": "^1.18.3",
+    "cookie-parser": "^1.4.3",
+    "cookie-session": "^2.0.0-beta.3",
     "express": "^4.16.2",
     "express-art-template": "^1.0.1",
+    "express-session": "^1.15.6",
     "jade": "^1.11.0",
     "mysql": "^2.15.0"
   }
