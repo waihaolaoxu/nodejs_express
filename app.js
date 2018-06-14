@@ -9,7 +9,6 @@ var app = express();
 //中间件
 app.use(cookieParser('secret'));
 app.use(expressSession({
-    // name:'_session',
     secret :  'secret', // 对session id 相关的cookie 进行签名
     resave : true,
     saveUninitialized: false, // 是否保存未初始化的会话
@@ -29,8 +28,6 @@ app.use('/users', users);
 
 
 // 视图引擎设置
-// app.set('views', path.join(__dirname, 'views'));
-// app.set('view engine', 'jade');
 app.engine('art', require('express-art-template'));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'art');

@@ -1,26 +1,10 @@
 let express = require('express');
 let router = express.Router();
 let axios = require('axios');
-// var mysql = require('mysql');
-// var dbConfig = require('../db/config');
-// var sql = require('../db/sql');
-// var pool  = mysql.createPool(dbConfig.mysql);
 
-/* GET home page. */
 router.get('/', function(req, res, next) {
-    // pool.getConnection(function(err, connection) {
-    //     connection.query(sql.test, function (error, results, fields) {
-    //         if (error) throw error;
-    //         console.log(results);
-    //         res.render('index', { data: results });
-    //     });
-        
-    //     connection.release();
-    // });
-    // console.log('22222')
-    
     if(req.session.userName){  //判断session 状态，如果有效，则返回主页，否则转到登录页面
-        
+
         res.cookie('aaa', 111, {    
             'signed': true
         });
@@ -44,7 +28,6 @@ router.get('/', function(req, res, next) {
     }else{
         res.redirect('/users/login');
     }
-    
 });
 
 module.exports = router;
