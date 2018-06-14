@@ -9,7 +9,7 @@ var app = express();
 //中间件
 app.use(cookieParser('secret'));
 app.use(expressSession({
-    name:'_session',
+    // name:'_session',
     secret :  'secret', // 对session id 相关的cookie 进行签名
     resave : true,
     saveUninitialized: false, // 是否保存未初始化的会话
