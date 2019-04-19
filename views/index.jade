@@ -1,9 +1,0 @@
-extends layout
-
-block content
-  .container
-    ul.list-group
-      each item in data
-        li.list-group-item
-          span #{item.tit || '无'}
-          span.pull-right #{item.con}

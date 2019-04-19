@@ -1,41 +1,38 @@
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var expressSession = require('express-session');
-var bodyParser = require('body-parser')
-var app = express();
+const express = require('express');
+const cookieParser = require('cookie-parser');
+const expressSession = require('express-session');
+const bodyParser = require('body-parser')
+const routeConfig = require('./config/route')
+const sqlConfig = require('./config/sql');
+const viewEngine = require('./config/viewengine');
+const mysql = require('mysql');
+const app = express();
 
+// 连接数据库
+app.use(function(req, res, next){
+  req.pool = mysql.createPool(sqlConfig);
+  next();
+})
 
 //中间件
 app.use(cookieParser('secret'));
 app.use(expressSession({
-    secret :  'secret', // 对session id 相关的cookie 进行签名
-    resave : true,
-    saveUninitialized: false, // 是否保存未初始化的会话
-    cookie : {
-        maxAge : 1000 * 60 * 60 * 24, // 设置 session 的有效时间，单位毫秒
-    }
+  secret: 'secret', // 对session id 相关的cookie 进行签名
+  resave: true,
+  saveUninitialized: false, // 是否保存未初始化的会话
+  cookie: {
+    maxAge: 1000 * 60 * 60 * 24, // 设置 session 的有效时间，单位毫秒
+  }
 }));
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
-
+app.use('/static', express.static('public'));//静态资源
 
 // 路由配置
-var index = require('./routes/index');
-var users = require('./routes/users');
-app.use('/', index);
-app.use('/users', users);
+routeConfig(app);
 
-
-// 视图引擎设置
-app.engine('art', require('express-art-template'));
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'art');
-
-
-//静态资源
-app.use('/static', express.static('public'));
-
+// 模版引擎配置
+viewEngine(app);
 
 // 创建服务器
 var server = app.listen(3000, function () {
@@ -44,16 +41,14 @@ var server = app.listen(3000, function () {
   console.log('Example app listening at http://%s:%s', host, port);
 });
 
-
 // 404 处理
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   // res.status(404).send('404');
-  res.status(404).render('404',{});
+  res.status(404).render('404', {});
 });
 
-
 // 错误处理
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   console.error(err.stack);
   res.status(500).send(err.stack);
 });
