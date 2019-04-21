@@ -1,19 +1,60 @@
-.text-overflow {
-  text-overflow: ellipsis;
+@import "class";
+@import "app";
+
+
+
+/**
+ * 首页
+ */
+.topBanner {
+  height: 265px;
+  margin-top: -20px;
+  background: url("/static/images/banner_top.jpg") no-repeat center center #262239;
+  position: relative;
   overflow: hidden;
-  white-space: nowrap;
 }
-
-.hide{
-  display: none;
+.topBanner:before {
+  content: "";
+  position: absolute;
+  width: 200px;
+  height: 100%;
+  top: 0;
+  left: -250px;
+  overflow: hidden;
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0) 0,
+    rgba(255, 255, 255, 0.2) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: skewX(-25deg);
 }
-
-.tc {
+.topBanner:hover:before {
+  left: 150%;
+  transition: left 2s ease 0s;
+}
+.backtop {
+  width: 50px;
+  height: 50px;
   text-align: center;
+  line-height: 50px;
+  background: #3e96d6;
+  color: #fff;
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  cursor: pointer;
+  display: none;
+  animation: hue 2s infinite linear;
 }
-.tl {
-  text-align: left;
+.backtop:hover {
+  background: #1669ab;
 }
-.tr {
-  text-align: right;
+@keyframes hue {
+  from {
+    filter: hue-rotate(0deg);
+  }
+  to {
+    filter: hue-rotate(-360deg);
+  }
 }

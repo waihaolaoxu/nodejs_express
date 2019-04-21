@@ -1,0 +1,53 @@
+.text-overflow {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.hide {
+  display: none;
+}
+.tc {
+  text-align: center;
+}
+.tl {
+  text-align: left;
+}
+.tr {
+  text-align: right;
+}
+
+@for $i from 1 through 80 {
+  .mt#{$i} {
+      margin-top:#{$i}px !important;
+  }
+  .mb#{$i} {
+      margin-bottom:#{$i}px !important;
+  }
+  .ml#{$i} {
+      margin-left:#{$i}px !important;
+  }
+  .mr#{$i} {
+      margin-right:#{$i}px !important;
+  }
+  .pdl#{$i} {
+      padding-left:#{$i}px !important;
+  }
+  .pdr#{$i} {
+      padding-right:#{$i}px !important;
+  }
+  .pdt#{$i} {
+      padding-top:#{$i}px !important;
+  }
+  .pdb#{$i} {
+      padding-bottom:#{$i}px !important;
+  }
+  .radius#{$i} {
+      border-radius:#{$i}px !important;
+  }
+}
+
+@for $i from 12 through 50 {
+  .f#{$i}{
+    font-size: #{$i}px !important;
+  }
+}

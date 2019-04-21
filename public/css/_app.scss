@@ -1,0 +1,28 @@
+html{
+  height: 100%;
+}
+body{
+  min-height: 100%;
+  position: relative;
+}
+.emptytip {
+  padding: 100px 0;
+  text-align: center;
+  font-size: 14px;
+  border: solid 1px #eee;
+}
+
+footer {
+  margin-top: 50px;
+  height: 76px;
+  .footer {
+    position: absolute;
+    left:0;
+    bottom: 0;
+    width: 100%;
+    background: #f8f8f8;
+    overflow: hidden;
+    border-top: solid 1px #eee;
+    padding: 15px 0 0;
+  }
+}
