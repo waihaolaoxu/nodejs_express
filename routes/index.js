@@ -10,5 +10,9 @@ router.get('/page/:page', function (req, res, next) {
   indexService.getPostList(req, res, next)
 });
 
+router.get('/archives/:id', function (req, res, next) {
+  indexService.getPostDetail(req, res, next)
+});
+
 
 module.exports = router;

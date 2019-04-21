@@ -1,0 +1,8 @@
+{{extend '../block/layout.art'}}
+{{block 'title'}} node+express项目 {{/block}}
+{{block 'content'}}
+
+<h1>{{data.post_title}}</h1>
+<div>{{data.post_content}}</div>
+
+{{/block}}
