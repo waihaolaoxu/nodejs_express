@@ -62,9 +62,6 @@ gulp.task('scripts', () => {
     .pipe($.if(dev, $.sourcemaps.write('.')))
     .pipe($.if(!dev, $.uglify(config.uglify)))
     .pipe($.if(dev, gulp.dest('.tmp/js'), gulp.dest('dist/scripts')))
-    .pipe(reload({
-      stream: true
-    }));
 });
 
 
@@ -72,13 +69,6 @@ gulp.task('images', () => {
   return gulp.src('public/images/**/*')
     // .pipe($.cache($.imagemin()))
     .pipe(gulp.dest('dist/images'));
-});
-
-
-gulp.task('fonts', () => {
-  return gulp.src(require('main-bower-files')('**/*.{eot,svg,ttf,woff,woff2}', function(err) {})
-      .concat('public/fonts/**/*'))
-    .pipe($.if(dev, gulp.dest('.tmp/fonts'), gulp.dest('dist/fonts')));
 });
 
 
@@ -107,16 +97,16 @@ gulp.task('vendorJs', () => {
 
 
 gulp.task('serve', () => {
-  runSequence(['clean'], ['styles', 'scripts', 'fonts', 'vendorJs'], () => {
+  runSequence(['clean'], ['styles', 'scripts', 'vendorJs'], () => {
     gulp.watch('public/css/**/*.scss', ['styles']);
     gulp.watch('public/js/**/*.js', ['scripts']);
-    gulp.watch('public/fonts/**/*', ['fonts']);
+    gulp.src('public/images/**/*').pipe(gulp.dest('.tmp/images'));
   });
 })
 
 
 //整体打包
-gulp.task('build-start', ['vendorJs', 'html', 'images', 'fonts', 'extras'], () => {
+gulp.task('build-start', ['vendorJs', 'html', 'images', 'extras'], () => {
   return gulp.src('public/**/*').pipe($.size({
     title: 'build',
     gzip: true

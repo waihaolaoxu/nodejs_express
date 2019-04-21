@@ -1,4 +1,4 @@
-{{extend './layout.art'}}
+{{extend './block/layout.art'}}
 {{block 'title'}} error {{/block}}
 {{block 'content'}} 
     服务器出错

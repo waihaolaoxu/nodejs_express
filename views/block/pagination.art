@@ -1,21 +1,50 @@
-<nav aria-label="Page navigation">
+<% 
+  var len = 5;
+  var pages = $data.page_total>len?len:$data.page_total 
+  var page = $data.page;
+  var rows = $data.rows;
+  var page_total = $data.page_total;
+%>
+<nav class="tc">
   <ul class="pagination">
-    <li>
-      <a href="/" aria-label="Previous">
-        <span aria-hidden="true">&laquo;</span>
+    <li class="<%= page==1?'disabled':'' %>">
+      <a href="/page/<%= page>1?page-1:1 %>" title="上一页">
+        <span>&laquo;</span>
       </a>
     </li>
-    {{if 2 <= 5 && $data.page <= 5}}
-      <% for(var i = 0; i < $data.page_total; i++){ %>
-          <%= i %>
+    <% if( page < 3 ){ %>
+      <% for(var i = 1; i <= pages; i++){ %>
+      <li class="<%= i==page?'active':'' %>">
+        <a href="/page/<%= i %>">
+          <span><%= i %></span>
+        </a>
+      </li>
       <% } %>
-      222222:{{page_total}}
-    {{/if}}
+    <% }else{ %>
+      <% for(var i = page-2; i <= page + 2; i++){ %>
+        <% if(i < page_total){ %>
+        <li class="<%= i==page?'active':'' %>">
+          <a href="/page/<%= i %>">
+            <span><%= i %></span>
+          </a>
+        </li>
+        <% } %>
+      <% } %>
+    <% } %>
+    <% if (page < page_total - 3 && page_total > len){ %>
     <li>
-      <a href="/" aria-label="Next">
-        <span aria-hidden="true">&raquo;</span>
+      <span>...</span>
+    </li>
+    <% } %>
+    <li class="<%= page==page_total?'active':'' %>">
+      <a href="/page/<%= page_total %>">
+        <span><%= page_total %></span>
+      </a>
+    </li>
+    <li class="<%= page_total==page?'disabled':'' %>">
+      <a href="/page/<%= page_total>page?(page+1):page %>" title="下一页">
+        <span>&raquo;</span>
       </a>
     </li>
   </ul>
 </nav>
-总条：{{$data}}

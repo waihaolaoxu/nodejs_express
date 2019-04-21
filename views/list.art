@@ -1,4 +1,4 @@
-{{extend './layout.art'}}
+{{extend './block/layout.art'}}
 {{block 'title'}} node+express项目 {{/block}}
 {{block 'content'}}
   <div class="row">

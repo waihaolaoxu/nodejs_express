@@ -2,7 +2,7 @@
  * @Author: qdlaoxu 
  * @Date: 2019-04-19 17:48:00 
  * @Last Modified by: qdlaoxu
- * @Last Modified time: 2019-04-21 14:00:47
+ * @Last Modified time: 2019-04-21 15:54:39
  */
 const querysql = require('../utils/querysql');
 
@@ -26,8 +26,8 @@ function getPostList(req, res, next) {
       res.render('./index/index', {
         data:{
           list: list,
-          page:page,
-          rows:rows,
+          page:Number(page),
+          rows:Number(rows),
           total:total,
           page_total:Math.ceil(total/rows)
         }

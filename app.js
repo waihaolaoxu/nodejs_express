@@ -26,7 +26,8 @@ app.use(expressSession({
 }));
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
-app.use('/static', express.static('public'));//静态资源
+app.use('/static', express.static('.tmp'));//静态资源
+app.use('/static', express.static('dist'));//静态资源
 
 // 路由配置
 routeConfig(app);
@@ -35,10 +36,8 @@ routeConfig(app);
 viewEngine(app);
 
 // 创建服务器
-var server = app.listen(3000, function () {
-  var host = server.address().address;
-  var port = server.address().port;
-  console.log('Example app listening at http://%s:%s', host, port);
+app.listen(3000, function () {
+  console.log('Example app listening at http://localhost:3000');
 });
 
 // 404 处理
