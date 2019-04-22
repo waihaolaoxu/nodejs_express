@@ -22,11 +22,11 @@
       </div>
       <div class="collapse navbar-collapse navbar-ex1-collapse">
         <ul class="nav navbar-nav navbar-right">
-          <li class="<%= /^\/(page\/\d+)?/.test(path)?'active':'' %>"><a href="/">首页</a></li>
-          <li class="<%= /^\/category\/html5/.test(path)?'active':'' %>"><a href="/category/html5">HTML5</a></li>
-          <li class="<%= /^\/category\/css3/.test(path)?'active':'' %>"><a href="/category/css3">CSS3</a></li>
-          <li class="<%= /^\/category\/js/.test(path)?'active':'' %>"><a href="/category/js">JS</a></li>
-          <li class="<%= /^\/category\/about/.test(path)?'active':'' %>"><a href="/category/about">关于</a></li>
+          <li class="<%= /^\/(page\/\d+)?$/.test(path)?'active':'' %>"><a href="/">首页</a></li>
+          <li class="<%= /^\/category\/html5$/.test(path)?'active':'' %>"><a href="/category/html5">HTML5</a></li>
+          <li class="<%= /^\/category\/css3$/.test(path)?'active':'' %>"><a href="/category/css3">CSS3</a></li>
+          <li class="<%= /^\/category\/js$/.test(path)?'active':'' %>"><a href="/category/js">JS</a></li>
+          <li class="<%= /^\/category\/about$/.test(path)?'active':'' %>"><a href="/category/about">关于</a></li>
           {{if userName}}
           <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown">{{userName}} <b class="caret"></b></a>
