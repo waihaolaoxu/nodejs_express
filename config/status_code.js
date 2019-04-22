@@ -1,8 +1,8 @@
 /*
  * @Author: qdlaoxu 
  * @Date: 2019-04-21 17:55:49 
- * @Last Modified by:   qdlaoxu 
- * @Last Modified time: 2019-04-21 17:55:49 
+ * @Last Modified by: qdlaoxu
+ * @Last Modified time: 2019-04-22 13:55:50
  */
 
 let statusCode = {
@@ -17,6 +17,10 @@ let statusCode = {
   1002:{
     code:1002,
     msg:"登陆账号或者密码错误！"
+  },
+  404:{
+    code:404,
+    msg:""
   }
 }
 module.exports = statusCode;

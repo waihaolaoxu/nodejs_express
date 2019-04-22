@@ -22,14 +22,14 @@
       </div>
       <div class="collapse navbar-collapse navbar-ex1-collapse">
         <ul class="nav navbar-nav navbar-right">
-          <li><a href="/category/html5">HTML5</a></li>
-          <li><a href="/category/css3">CSS3</a></li>
-          <li><a href="/category/js">JS</a></li>
-          <!-- <li><a href="/category/about">前端工程</a></li> -->
-          <li><a href="/category/about">关于</a></li>
+          <li class="<%= /^\/(page\/\d+)?/.test(path)?'active':'' %>"><a href="/">首页</a></li>
+          <li class="<%= /^\/category\/html5/.test(path)?'active':'' %>"><a href="/category/html5">HTML5</a></li>
+          <li class="<%= /^\/category\/css3/.test(path)?'active':'' %>"><a href="/category/css3">CSS3</a></li>
+          <li class="<%= /^\/category\/js/.test(path)?'active':'' %>"><a href="/category/js">JS</a></li>
+          <li class="<%= /^\/category\/about/.test(path)?'active':'' %>"><a href="/category/about">关于</a></li>
           {{if userName}}
           <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{userName}} <b class="caret"></b></a>
+            <a class="dropdown-toggle" data-toggle="dropdown">{{userName}} <b class="caret"></b></a>
             <ul class="dropdown-menu">
               <li><a href="/admin/loginout">退出</a></li>
             </ul>
@@ -39,7 +39,9 @@
       </div>
     </div>
   </nav>
-  <div class="topBanner"></div>
+  {{if code!= 404}}
+  <!--<div class="topBanner"></div>-->
+  {{/if}}
   <div class="container" style="margin-top: 20px;">
     {{block 'content'}}{{/block}}
   </div>

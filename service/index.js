@@ -2,10 +2,10 @@
  * @Author: qdlaoxu 
  * @Date: 2019-04-19 17:48:00 
  * @Last Modified by: qdlaoxu
- * @Last Modified time: 2019-04-21 15:54:39
+ * @Last Modified time: 2019-04-22 14:05:14
  */
-const querysql = require('../utils/querysql');
 
+const querysql = require('../utils/querysql');
 /**
  * 获取帖子列表
  */
@@ -22,7 +22,7 @@ function getPostList(req, res, next) {
     if (err) throw err;
     req.pool.query(sqlCount, function (err, count, fields) {
       if (err) throw err;
-      let total = count[0]['count(*)'];
+      let total = count[0].total;
       res.render('./index/index', {
         data:{
           list: list,
@@ -30,7 +30,9 @@ function getPostList(req, res, next) {
           rows:Number(rows),
           total:total,
           page_total:Math.ceil(total/rows)
-        }
+        },
+        username:"",
+        path:req.path
       });
     })
   });

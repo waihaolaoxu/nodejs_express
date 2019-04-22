@@ -5,6 +5,7 @@ const bodyParser = require('body-parser')
 const routeConfig = require('./config/route')
 const sqlConfig = require('./config/sql');
 const viewEngine = require('./config/viewengine');
+const statusCode = require('./config/status_code');
 const mysql = require('mysql');
 const app = express();
 
@@ -43,11 +44,11 @@ app.listen(3000, function () {
 // 404 处理
 app.use(function (req, res, next) {
   // res.status(404).send('404');
-  res.status(404).render('404', {});
+  res.status(404).render('404', statusCode['404']);
 });
 
 // 错误处理
 app.use(function (err, req, res, next) {
-  console.error(err.stack);
+  // console.error(err.stack);
   res.status(500).send(err.stack);
 });

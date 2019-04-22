@@ -2,7 +2,7 @@
  * @Author: qdlaoxu 
  * @Date: 2019-04-19 18:07:13 
  * @Last Modified by: qdlaoxu
- * @Last Modified time: 2019-04-21 13:51:15
+ * @Last Modified time: 2019-04-22 12:36:02
  */
 
 // 帖子-列表查询
@@ -17,7 +17,7 @@ function queryPostDetail({id, column}) {
 
 // 帖子-查询总条数
 function queryPostCount() {
-  return `select count(*) from wp_posts where post_type = 'post'`;
+  return `select count(*) total from wp_posts where post_type = 'post'`;
 }
 
 module.exports = {
