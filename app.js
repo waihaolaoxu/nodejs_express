@@ -2,18 +2,14 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const expressSession = require('express-session');
 const bodyParser = require('body-parser')
-const routeConfig = require('./config/route')
-const sqlConfig = require('./config/sql');
+const routeConfig = require('./config/route');
 const viewEngine = require('./config/viewengine');
-const statusCode = require('./config/status_code');
-const mysql = require('mysql');
+const connectDatabase = require('./connect_database');
+const utils = require('./utils/utils');
 const app = express();
 
 // 连接数据库
-app.use(function(req, res, next){
-  req.pool = mysql.createPool(sqlConfig);
-  next();
-})
+connectDatabase(app);
 
 //中间件
 app.use(cookieParser('secret'));
@@ -27,11 +23,15 @@ app.use(expressSession({
 }));
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
-app.use('/static', express.static('.tmp'));//静态资源
-app.use('/static', express.static('dist'));//静态资源
 
-// 路由配置
-routeConfig(app);
+//静态资源
+app.use('/static', express.static('.tmp'));
+app.use('/static', express.static('dist'));
+
+// 调用路由中间件
+routeConfig.forEach(d=>{
+  app.use(d.root, require(d.require));
+});
 
 // 模版引擎配置
 viewEngine(app);
@@ -43,12 +43,10 @@ app.listen(3000, function () {
 
 // 404 处理
 app.use(function (req, res, next) {
-  // res.status(404).send('404');
-  res.status(404).render('404', statusCode['404']);
+  res.status(404).render('404', utils.getReturn(404));
 });
 
 // 错误处理
 app.use(function (err, req, res, next) {
-  // console.error(err.stack);
   res.status(500).send(err.stack);
 });

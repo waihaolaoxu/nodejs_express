@@ -1,23 +1,25 @@
 {{extend '../block/layout.art'}}
-{{block 'title'}} 前端老徐 {{/block}}
+{{block 'title'}} node+express {{/block}}
 {{block 'content'}}
-  {{if data.list.length>0}}
-    <ul class="list-group">
-      {{each data.list}}
-      <li class="list-group-item">
-        <p>
-          <a href="/archives/{{$value.ID}}">{{$value.post_title}}</a>
-        </p>
-        <div class="text-muted">
-          <span title="发布日期"><i class="glyphicon glyphicon-calendar"></i> {{$value.post_date | date 'yyyy-MM-dd hh-mm:ss'}}</span>
-          <span title="评论数"><i class="glyphicon glyphicon-list-alt"></i> {{$value.comment_count}}</span>
-        </div>
-      </li>
-      {{/each}}
-    </ul>
-    {{include '../block/pagination.art' data}}
-  {{else}}
-    {{include '../block/empty.art'}}
-  {{/if}}
-  {{data.path}}
+{{if data.list.length>0}}
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>帖子</th>
+      <th class="tr">发布日期</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{each data.list}}
+    <tr>
+      <td><a href="/archives/{{$value.posts_id}}">{{$value.posts_title}}</a></td>
+      <td class="tr" width="100">{{$value.posts_publish_time | date 'yyyy-MM-dd' }}</td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
+{{include '../block/pagination.art' data}}
+{{else}}
+{{include '../block/empty.art'}}
+{{/if}}
 {{/block}}

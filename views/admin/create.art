@@ -1,0 +1,23 @@
+{{extend '../block/layout_admin.art'}}
+{{block 'title'}} 创建新帖 {{/block}}
+{{block 'content'}}
+   <select class="form-control" placeholder="分类">
+
+   </select>
+   <input class="form-control mt10" placeholder="帖子标题" max="50">
+   <textarea class="form-control mt10" rows="10" placeholder="帖子内容"></textarea>
+   <div class="tr">
+     <button type="button" class="btn btn-default mt10">提交</button>
+   </div>
+{{/block}}
+{{block 'js'}}
+<script>
+$.ajax({
+  url:"/api/post/category",
+  method:"post",
+  success:function(res){
+    console.log(res);
+  }
+})
+</script>
+{{/block}}

@@ -1,0 +1,14 @@
+[
+  {
+    "path": "/",
+    "handler": "getPostsList"
+  },
+  {
+    "path": "/page/:page",
+    "handler": "getPostsList"
+  },
+  {
+    "path": "/archives/:id",
+    "handler": "getPostsDetail"
+  }
+]

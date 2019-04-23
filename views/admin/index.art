@@ -1,0 +1,4 @@
+{{extend '../block/layout_admin.art'}}
+{{block 'content'}}
+<div class="tc f20 mt50">前端老徐博客管理系统</div>
+{{/block}}

@@ -1,28 +1,19 @@
 /*
  * @Author: qdlaoxu 
- * @Date: 2019-04-18 19:49:59 
+ * @Date: 2019-04-23 17:56:34 
  * @Last Modified by: qdlaoxu
- * @Last Modified time: 2019-04-21 17:46:34
+ * @Last Modified time: 2019-04-23 17:57:18
  */
-const config = [
-  {
-    root:"/",
-    require: '../routes/index'
-  },
-  {
-    root:"/list",
-    require: '../routes/list'
-  },
-  {
-    root:"/admin",
-    require: '../routes/admin'
-  }
-];
 
-function registor(app){
-  config.forEach(d=>{
-    app.use(d.root, require(d.require));
-  })
-}
-
-module.exports = registor;
+module.exports = [{
+  root: "/",
+  require: './routes/index'
+},
+{
+  root: "/admin",
+  require: './routes/admin'
+},
+{
+  root: "/api",
+  require: './routes/api'
+}]

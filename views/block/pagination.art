@@ -5,6 +5,7 @@
   var rows = $data.rows;
   var page_total = $data.page_total;
 %>
+<% if(page_total>1){%>
 <nav class="tc">
   <ul class="pagination">
     <li class="<%= page==1?'disabled':'' %>">
@@ -48,3 +49,4 @@
     </li>
   </ul>
 </nav>
+<% } %>
