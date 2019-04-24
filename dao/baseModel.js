@@ -2,7 +2,7 @@
  * @Author: qdlaoxu 
  * @Date: 2019-04-23 18:07:13 
  * @Last Modified by: qdlaoxu
- * @Last Modified time: 2019-04-24 17:10:00
+ * @Last Modified time: 2019-04-24 18:18:07
  */
 const entity = require('../entity/entity');
 
@@ -23,13 +23,13 @@ class baseModel extends entity {
     return sql;
   }
   // 删
-  deleteSql({ tableName, where = {} }) {
-    let _where = [], sql = `DELETE FROM ${tableName}`;
-    for (let x in where) {
-      _where.push(`${x} = '${where[x]}'`);
+  deleteSql({ tableName, condition = {} }) {
+    let where = [], sql = `DELETE FROM ${tableName}`;
+    for (let x in condition) {
+      where.push(`${x} = '${condition[x]}'`);
     }
-    if (_where.length) {
-      sql += ` WHERE ${_where.join(' AND ')}`
+    if (where.length) {
+      sql += ` WHERE ${where.join(' AND ')}`
     }
     return sql;
   }
@@ -41,14 +41,18 @@ class baseModel extends entity {
     for (let x in data) {
       column.push(`${x} = '${data[x]}'`);
     }
-    let sql = ` UPDATE Person SET ${column.join(',')} WHERE ${idKey} = ${id}`;
+    let sql = ` UPDATE ${tableName} SET ${column.join(',')} WHERE ${idKey} = ${id}`;
     return sql;
   }
   // 查列表
-  selectSql({ tableName, where, sort, sortColumn, page, rows }) {
+  selectSql({ tableName, condition, sort, sortColumn, page, rows }) {
     let sql = `SELECT ${Object.keys(this[tableName].column).join(',')} FROM ${tableName}`;
-    if (where) {
-      sql += ` WHERE ${where}`
+    let where = [];
+    for (let x in condition) {
+      where.push(`${x} = '${condition[x]}'`);
+    }
+    if (where.length) {
+      sql += ` WHERE ${where.join(' AND ')}`
     }
     if (sort) {
       sql += ` ORDER BY ${sortColumn} ${sort || 'DESC'}`
@@ -59,10 +63,14 @@ class baseModel extends entity {
     return sql;
   }
   // 查总数
-  selectCountSql({ tableName, where }) {
+  selectCountSql({ tableName, condition }) {
     let sql = `SELECT count(*) total FROM ${tableName}`;
-    if (where) {
-      sql += ` WHERE ${where}`
+    let where = [];
+    for (let x in condition) {
+      where.push(`${x} = '${condition[x]}'`);
+    }
+    if (where.length) {
+      sql += ` WHERE ${where.join(' AND ')}`
     }
     return sql;
   }

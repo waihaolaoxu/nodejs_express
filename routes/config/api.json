@@ -8,5 +8,40 @@
     "path": "/posts/delete",
     "handler": "deletePosts",
     "login":false
+  },
+  {
+    "path": "/posts/update",
+    "handler": "updatePosts",
+    "login":false
+  },
+  {
+    "path": "/posts/list",
+    "handler": "queryPostsList",
+    "login":false
+  },
+  {
+    "path": "/posts/info",
+    "handler": "queryPostsDetaile",
+    "login":false
+  },
+  {
+    "path": "/category/create",
+    "handler": "createCategory",
+    "login":false
+  },
+  {
+    "path": "/category/delete",
+    "handler": "deleteCategory",
+    "login":false
+  },
+  {
+    "path": "/category/update",
+    "handler": "updateCategory",
+    "login":false
+  },
+  {
+    "path": "/category/list",
+    "handler": "queryCategoryList",
+    "login":false
   }
 ]

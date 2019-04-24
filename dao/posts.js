@@ -2,7 +2,7 @@
  * @Author: qdlaoxu 
  * @Date: 2019-04-24 10:29:44 
  * @Last Modified by: qdlaoxu
- * @Last Modified time: 2019-04-24 17:25:45
+ * @Last Modified time: 2019-04-24 18:48:33
  */
 
 const baseModel = require('./baseModel');
@@ -18,13 +18,15 @@ class Posts extends baseModel {
 
   // 获取帖子列表
   getList(req, callback) {
-    let page = req.params.page || this.page;
-    let rows = req.params.rows || this.rows;
+    let page = req.params.page || req.body.page || this.page;
+    let rows = req.params.rows || req.body.rows || this.rows;
     let sql = this.selectSql({
       tableName: this.tableName,
       page,
       rows,
-      where: "posts_status = 1", //查询条件
+      condition: { //查询条件
+        posts_status: 1
+      },
       sortColumn: "posts_id", //排序字段
       sort: "desc" //倒序
     });
@@ -32,10 +34,13 @@ class Posts extends baseModel {
       if (err) throw err;
       let sql = this.selectCountSql({
         tableName: this.tableName,
-        where: "posts_status = 1"
+        condition: { //查询条件
+          posts_status: 1
+        }
       })
-      req.pool.query(sql, (err, total, fields) => {
+      req.pool.query(sql, (err, data, fields) => {
         if (err) throw err;
+        let total = data[0].total;
         callback && callback({
           list: list,
           page: Number(page),
@@ -51,7 +56,9 @@ class Posts extends baseModel {
   getDetaile(req, callback) {
     let sql = this.selectSql({
       tableName: this.tableName,
-      where: `posts_id = ${req.params.id}`
+      condition:{
+        posts_id:req.params.id || req.body.posts_id
+      }
     });
     req.pool.query(sql, function (err, data, fields) {
       if (err) throw err;
@@ -60,10 +67,10 @@ class Posts extends baseModel {
   }
 
   // 创建帖子
-  createPosts(req, callback) {
+  create(req, callback) {
     let date = utils.getDate();
     let userInfo = req.session.userInfo;
-    req.body.posts_author = userInfo? userInfo.user_id:null;
+    req.body.posts_author = userInfo ? userInfo.user_id : 0;
     req.body.posts_status = 1;
     req.body.posts_publish_time = date;
     req.body.posts_create_time = date;
@@ -79,16 +86,35 @@ class Posts extends baseModel {
   }
 
   // 删除帖子
-  deletePosts(req, callback) {
+  delete(req, callback) {
     let sql = this.deleteSql({
       tableName: this.tableName,
-      where: req.body
+      condition: req.body
     });
     req.pool.query(sql, function (err, data, fields) {
       if (err) throw err;
       callback && callback()
     });
   }
+
+  // 修改帖子
+  update(req, callback) {
+    let date = utils.getDate();
+    let userInfo = req.session.userInfo;
+    req.body.posts_author = userInfo ? userInfo.user_id : 0;
+    req.body.posts_status = typeof req.body.posts_status != 'undefined' ? req.body.posts_status : 1;
+    req.body.posts_update_time = date;
+    let sql = this.updateSql({
+      tableName: this.tableName,
+      data: req.body
+    });
+    req.pool.query(sql, function (err, data, fields) {
+      if (err) throw err;
+      callback && callback()
+    });
+  }
+
+
 }
 
 module.exports = new Posts();
