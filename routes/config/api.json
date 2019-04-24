@@ -1,0 +1,12 @@
+[
+  {
+    "path": "/posts/create",
+    "handler": "createPosts",
+    "login":false
+  },
+  {
+    "path": "/posts/delete",
+    "handler": "deletePosts",
+    "login":false
+  }
+]

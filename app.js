@@ -5,7 +5,6 @@ const bodyParser = require('body-parser')
 const routeConfig = require('./config/route');
 const viewEngine = require('./config/viewengine');
 const connectDatabase = require('./connect_database');
-const utils = require('./utils/utils');
 const app = express();
 
 // 连接数据库
@@ -43,7 +42,7 @@ app.listen(3000, function () {
 
 // 404 处理
 app.use(function (req, res, next) {
-  res.status(404).render('404', utils.getReturn(404));
+  res.status(404).render('404');
 });
 
 // 错误处理
