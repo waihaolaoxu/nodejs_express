@@ -1,4 +1,10 @@
 <% 
+  var path = $data.path;
+  if(path.indexOf('category')>-1){
+    path = '/' + path.match(/category\/\d+/)[0];
+  }else{
+    path = ''
+  }
   var len = 5;
   var pages = $data.page_total>len?len:$data.page_total 
   var page = $data.page;
@@ -9,14 +15,14 @@
 <nav class="tc">
   <ul class="pagination">
     <li class="<%= page==1?'disabled':'' %>">
-      <a href="/page/<%= page>1?page-1:1 %>" title="上一页">
+      <a href="<%= path %>/page/<%= page>1?page-1:1 %>" title="上一页">
         <span>&laquo;</span>
       </a>
     </li>
     <% if( page < 3 ){ %>
-      <% for(var i = 1; i <= pages; i++){ %>
+      <% for(var i = 1; i < pages; i++){ %>
       <li class="<%= i==page?'active':'' %>">
-        <a href="/page/<%= i %>">
+        <a href="<%= path %>/page/<%= i %>">
           <span><%= i %></span>
         </a>
       </li>
@@ -25,7 +31,7 @@
       <% for(var i = page-2; i <= page + 2; i++){ %>
         <% if(i < page_total){ %>
         <li class="<%= i==page?'active':'' %>">
-          <a href="/page/<%= i %>">
+          <a href="<%= path %>/page/<%= i %>">
             <span><%= i %></span>
           </a>
         </li>
@@ -38,12 +44,12 @@
     </li>
     <% } %>
     <li class="<%= page==page_total?'active':'' %>">
-      <a href="/page/<%= page_total %>">
+      <a href="<%= path %>/page/<%= page_total %>">
         <span><%= page_total %></span>
       </a>
     </li>
     <li class="<%= page_total==page?'disabled':'' %>">
-      <a href="/page/<%= page_total>page?(page+1):page %>" title="下一页">
+      <a href="<%= path %>/page/<%= page_total>page?(page+1):page %>" title="下一页">
         <span>&raquo;</span>
       </a>
     </li>

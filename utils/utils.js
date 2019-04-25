@@ -2,7 +2,7 @@
  * @Author: qdlaoxu 
  * @Date: 2019-04-23 17:19:13 
  * @Last Modified by: qdlaoxu
- * @Last Modified time: 2019-04-24 18:05:52
+ * @Last Modified time: 2019-04-25 16:49:02
  */
 
 const statusCode = require('../config/status_code');
@@ -10,6 +10,7 @@ const statusCode = require('../config/status_code');
 const utils = {
   // 服务端渲染页面反回页面
   returnView({data,template,req,res}){
+    data.path = req.path;
     res.render(template, {
       data:data,
       path:req.path
@@ -44,6 +45,23 @@ const utils = {
     var minute = _formatNumber(date.getMinutes());
     var second = _formatNumber(date.getSeconds());
     return formater.replace("yyyy", year).replace("MM", month).replace("dd", day).replace("hh", hour).replace("mm", minute).replace("ss", second);
+  },
+  //数组转对象
+  arrayToObj(key,data){
+    let obj = {}
+    for(let x in data){
+      obj[data[x][key]] = data[x];
+    }
+    return obj;
+  },
+  // 遍历
+  each(data,callback){
+    for (let x in data) {
+      let d = callback(x, data[x]);
+      if (d === false) {
+        break;
+      }
+    }
   }
 }
 

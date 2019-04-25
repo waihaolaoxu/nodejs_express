@@ -3,7 +3,7 @@
 {{block 'content'}}
 
 <h1>{{data.posts_title}}</h1>
-<p class="text-muted">{{data.posts_publish_time | date}}</p>
+<p class="text-muted"><span>{{data.posts_publish_time | date}}</span> <span class="ml20">{{data.category_name}}</span></p>
 <div>{{@ data.posts_content}}</div>
 
 {{/block}}

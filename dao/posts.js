@@ -2,7 +2,7 @@
  * @Author: qdlaoxu 
  * @Date: 2019-04-24 10:29:44 
  * @Last Modified by: qdlaoxu
- * @Last Modified time: 2019-04-24 18:48:33
+ * @Last Modified time: 2019-04-25 16:55:37
  */
 
 const baseModel = require('./baseModel');
@@ -18,25 +18,34 @@ class Posts extends baseModel {
 
   // 获取帖子列表
   getList(req, callback) {
-    let page = req.params.page || req.body.page || this.page;
-    let rows = req.params.rows || req.body.rows || this.rows;
+    let page = req.body.page || req.params.page || this.page;
+    let rows = req.body.rows || req.params.rows || this.rows;
+    let category_id = req.body.category_id || req.params.category_id || "";
+    let condition = { //查询条件
+      posts_status: 1,
+    }
+    if(category_id){
+      condition.posts_category = category_id;
+    }
     let sql = this.selectSql({
       tableName: this.tableName,
+      condition:condition,
       page,
       rows,
-      condition: { //查询条件
-        posts_status: 1
-      },
       sortColumn: "posts_id", //排序字段
       sort: "desc" //倒序
     });
     req.pool.query(sql, (err, list, fields) => {
       if (err) throw err;
+      let condition = { //查询条件
+        posts_status: 1,
+      }
+      if(category_id){
+        condition.posts_category = category_id;
+      }
       let sql = this.selectCountSql({
         tableName: this.tableName,
-        condition: { //查询条件
-          posts_status: 1
-        }
+        condition: condition
       })
       req.pool.query(sql, (err, data, fields) => {
         if (err) throw err;
@@ -57,7 +66,7 @@ class Posts extends baseModel {
     let sql = this.selectSql({
       tableName: this.tableName,
       condition:{
-        posts_id:req.params.id || req.body.posts_id
+        posts_id:req.body.posts_id || req.params.id
       }
     });
     req.pool.query(sql, function (err, data, fields) {

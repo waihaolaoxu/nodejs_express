@@ -6,16 +6,18 @@
   <thead>
     <tr>
       <th>ID</th>
-      <th>帖子</th>
+      <th>分类</th>
+      <th>标题</th>
       <th class="tr">发布日期</th>
     </tr>
   </thead>
   <tbody>
     {{each data.list}}
     <tr>
-      <td width="50">{{$value.posts_id}}</td>
+      <td width="10%">{{$value.posts_id}}</td>
+      <td width="20%">{{$value.category_name}}</td>
       <td><a href="/archives/{{$value.posts_id}}">{{$value.posts_title}}</a></td>
-      <td class="tr" width="100">{{$value.posts_publish_time | date 'yyyy-MM-dd' }}</td>
+      <td width="30%" class="tr" width="100">{{$value.posts_publish_time | date 'yyyy-MM-dd' }}</td>
     </tr>
     {{/each}}
   </tbody>

@@ -2,7 +2,7 @@
  * @Author: qdlaoxu 
  * @Date: 2019-04-24 10:29:44 
  * @Last Modified by: qdlaoxu
- * @Last Modified time: 2019-04-24 18:38:51
+ * @Last Modified time: 2019-04-25 15:54:48
  */
 
 const baseModel = require('./baseModel');
@@ -55,12 +55,23 @@ class Category extends baseModel {
     let sql = this.selectSql({
       tableName: this.tableName,
     });
-    req.pool.query(sql, (err, list, fields) => {
+    req.pool.query(sql, (err, data, fields) => {
       if (err) throw err;
-      callback && callback({
-        list: list,
-        total:list.length
-      });
+      callback && callback(data);
+    });
+  }
+
+  // 查询详情
+  getDetaile(req,callback){
+    let sql = this.selectSql({
+      tableName: this.tableName,
+      condition:{
+        category_id:req.body.category_id || req.params.category_id
+      }
+    });
+    req.pool.query(sql, (err, data, fields) => {
+      if (err) throw err;
+      callback && callback(data);
     });
   }
 }
