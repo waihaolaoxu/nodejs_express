@@ -2,7 +2,7 @@
  * @Author: qdlaoxu 
  * @Date: 2019-04-24 10:29:44 
  * @Last Modified by: qdlaoxu
- * @Last Modified time: 2019-04-24 19:44:49
+ * @Last Modified time: 2019-04-25 17:56:10
  */
 
 const baseModel = require('./baseModel');
@@ -16,6 +16,9 @@ class Category extends baseModel {
 
   // 查询
   getUser(req,callback){
+    if(req.body.user_pass){
+      req.body.user_pass = utils.encrypt(req.body.user_pass);
+    }
     let sql = this.selectSql({
       tableName: this.tableName,
       condition: req.body

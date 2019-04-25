@@ -2,10 +2,12 @@
  * @Author: qdlaoxu 
  * @Date: 2019-04-23 17:19:13 
  * @Last Modified by: qdlaoxu
- * @Last Modified time: 2019-04-25 16:49:02
+ * @Last Modified time: 2019-04-25 17:55:15
  */
 
 const statusCode = require('../config/status_code');
+const crypto = require('crypto');
+const secret = "20130607";
 
 const utils = {
   // 服务端渲染页面反回页面
@@ -62,6 +64,10 @@ const utils = {
         break;
       }
     }
+  },
+  // 加密
+  encrypt(str){
+    return crypto.createHmac('sha1',secret).update(str).digest('hex').substring(0,32);
   }
 }
 
