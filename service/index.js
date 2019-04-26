@@ -2,7 +2,7 @@
  * @Author: qdlaoxu 
  * @Date: 2019-04-19 17:48:00 
  * @Last Modified by: qdlaoxu
- * @Last Modified time: 2019-04-26 15:20:29
+ * @Last Modified time: 2019-04-26 19:08:20
  */
 
 const posts = require('../dao/posts');
@@ -31,13 +31,13 @@ function getPostsList(req, res, next) {
 function getPostsDetail(req, res, next) {
   posts.getDetaile(req, data => {
     req.body = {
-      category_id: data[0].posts_category
+      category_id: data.posts_category
     }
     category.getDetaile(req,data2=>{
       if(data2.length){
-        data[0].category_name = data2[0].category_name;
+        data.category_name = data2.category_name;
       }else{
-        data[0].category_name = ""
+        data.category_name = ""
       }
       utils.returnView({
         template:'./index/archives',

@@ -2,7 +2,7 @@
  * @Author: qdlaoxu 
  * @Date: 2019-04-24 10:29:44 
  * @Last Modified by: qdlaoxu
- * @Last Modified time: 2019-04-25 15:54:48
+ * @Last Modified time: 2019-04-26 19:08:54
  */
 
 const baseModel = require('./baseModel');
@@ -71,7 +71,7 @@ class Category extends baseModel {
     });
     req.pool.query(sql, (err, data, fields) => {
       if (err) throw err;
-      callback && callback(data);
+      callback && callback(data[0]);
     });
   }
 }
