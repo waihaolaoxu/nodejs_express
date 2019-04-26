@@ -1,0 +1,90 @@
+/**
+ * reset
+*/ 
+html,body{width: 100%;height: 100%;}
+body{background: #f0f3f4;width:100%;overflow-x: hidden;}
+a {
+  color: inherit;
+  outline: none;
+  text-decoration: none;
+}
+body,ul,li,p,ul,li,dl,dt,dd{margin: 0;padding: 0;}
+li{list-style: none;}
+
+
+
+/**
+ * element-ui  reset
+*/ 
+.el-tag{
+    color:#409eff;
+}
+.el-time-spinner {
+    width: 100%;
+    white-space: nowrap;
+}
+.el-tabs__header{margin-bottom: 0 !important;}
+.el-tabs--card>.el-tabs__header .el-tabs__nav{overflow: hidden;}
+.el-tabs--card{
+    .el-tabs__item{
+        background: #fff;border-bottom: solid 1px $border-3 !important;
+        &.is-active{border-bottom-color:#fff !important;}
+    }
+}
+.el-table--mini, .el-table--small{font-size: 14px;}
+.el-breadcrumb__inner{font-weight: normal;}
+.el-menu--horizontal {
+    border-bottom: 0 !important;
+    .el-submenu .el-submenu__title,.el-menu-item{
+        height: 50px !important;
+        line-height: 50px !important;
+    }
+    .el-menu .el-menu-item{
+        height: 35px !important;
+        line-height: 35px !important;
+    }
+}
+.el-menu-item, .el-submenu__title,.el-submenu .el-menu-item{
+    height: 40px !important;
+    line-height: 40px !important;
+}
+.el-pagination{white-space: normal;}
+@media screen and (max-width: 767px) {
+  .el-pagination{text-align: center;}
+  .el-pagination .el-select .el-input,
+  .el-pagination span:not([class*=suffix]){display:none !important;}
+  .el-dialog{
+      width: 100% !important;
+  }
+}
+.form-page .el-tabs--card>.el-tabs__header{
+    border-bottom: 0;
+}
+.form-page{
+    .el-form{
+        max-width: 800px;
+    }
+}
+.el-card__header{
+    padding: 12px 15px !important;
+    font-size: 14px !important;
+}
+.el-select-dropdown__empty{
+    min-width: 100px;
+}
+.el-form-item .el-form-item {
+    margin-bottom: 0 !important;
+}
+.el-dialog__body{
+    padding:10px 20px !important;
+}
+.el-step__title {
+    font-size: 14px !important;
+    line-height: 30px !important;
+}
+.el-step__title.is-process,.el-step__icon-inner{
+    font-weight: normal !important;
+}
+.el-step__icon.is-text,{
+    border-width: 1px !important;
+}

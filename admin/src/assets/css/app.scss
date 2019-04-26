@@ -1,0 +1,133 @@
+@import "color";
+@import "reset";
+@import "class";
+@import "components";
+/**
+ * 模版布局
+*/ 
+#app{position: relative;
+    width: 100%;
+    height: auto;
+    min-height: 100%;
+    }
+.content{
+  position: absolute;
+  top:50px;
+  left:200px;
+  right:0;
+  .page-cat-nav{
+      width: 200px;
+      margin-right: 15px;
+      background: #fff;
+      padding: 15px;
+      border-radius: 3px 3px 0 0;
+      border:solid 1px $border-2;
+  }
+  .bottom-toolbar{
+    height: 50px;
+    position: relative;
+    z-index: 100;
+    .fixed-box{
+      position: fixed;
+      left:216px;
+      right:16px;
+      background: #fff;
+      bottom: 0;
+      height: 50px;
+      line-height: 50px;
+      text-align: center;
+      box-shadow: 0 0 10px #ccc;
+    }
+  }
+}
+.wrapper{
+  padding:15px;
+}
+.header{
+    position: fixed;
+    left:200px;
+    top:0;
+    right:0;
+    z-index: 999;
+    .login-info{
+      float:right;
+      .el-menu{
+        right:0;
+        left:initial;
+      }
+    }
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.06), 0 1px 0 rgba(0, 0, 0, 0.06);
+}
+.aside-wrap{
+    width:200px; 
+    position: fixed;
+    left:0;
+    top:0;
+    bottom:0;
+    background: #324157;
+    overflow-x:hidden;
+    .menu-wrap{
+        position: absolute;
+        left:0;
+        right:0;
+        top:50px;
+        bottom:0;
+        overflow-y: auto;
+        overflow-x: hidden;
+        width: 230px;
+        .el-menu{
+            width: 200px;
+        }
+        .el-menu-item{
+          user-select: none;
+          &.is-active{
+            // color:$primary !important;
+            background:rgba(0,0,0,.1) !important;
+          }
+        }
+    }
+    .logo{
+        height: 50px;
+        line-height: 50px;
+        color:#fff;
+        background:#324157;
+        padding-left:25px;
+        font-size: 20px;
+    }
+}
+.aside-folded{
+  .aside-wrap{
+    -webkit-transform: translateX(-200px);
+    transform: translateX(-200px);
+  }
+  .header,.content{
+    left:0;
+    //  -webkit-transform: translateX(0);
+    //  transform: translateX(0);
+  }
+  .bottom-toolbar{
+    .fixed-box{
+      left:16px;
+    }
+  }
+}
+@media (max-width:768px) {
+    .aside-wrap,.header,.content{
+        transition: all ease .3s .1s;
+    }
+    .content{
+        left:200px;
+        // -webkit-transform: translateX(200px);
+        // transform: translateX(200px);
+    }
+    .page-cat-nav{
+        display: none;
+    }
+}
+//列表页面
+.list-box{
+    background: #fff;border:solid 1px $border-2;border-top: 0;overflow: hidden;
+    .list-header{border-bottom: solid 1px $border-2;margin: 0 15px; padding:15px 0 0;}
+    .list-body{padding:0 15px;}
+    .list-footer{text-align: right;padding: 15px;}
+}

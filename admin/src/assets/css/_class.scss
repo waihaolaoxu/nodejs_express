@@ -1,0 +1,187 @@
+/**
+ * 公共
+*/
+.tc {
+  text-align: center;
+}
+.tr {
+  text-align: right;
+}
+
+// 浮动
+.fl {
+  float: left !important;
+}
+.fr {
+  float: right !important;
+}
+
+// 定位
+.pr {
+  position: relative;
+}
+.pa {
+  position: absolute;
+}
+.pf {
+  position: fixed !important;
+}
+
+// 背景色
+.bg-white {
+  background: #fff;
+}
+
+// 文字颜色
+.text-1 {
+  color: $text-1;
+}
+.text-2 {
+  color: $text-2;
+}
+.text-3 {
+  color: $text-3;
+}
+.text-4 {
+  color: $text-4;
+}
+.text-success {
+  color: $success;
+}
+.text-warning {
+  color: $warning;
+}
+.text-danger {
+  color: $danger;
+}
+.text-info {
+  color: $info;
+}
+.text-primary {
+  color: $primary;
+}
+
+//边框
+.b {
+  border: solid 1px $border-2;
+}
+
+// 间距、字号
+@for $i from 5 through 50 {
+  .mt#{$i} {
+    margin-top: #{$i}px !important;
+  }
+  .ml#{$i} {
+    margin-left: #{$i}px !important;
+  }
+  .mr#{$i} {
+    margin-right: #{$i}px !important;
+  }
+
+  .mb#{$i} {
+    margin-bottom: #{$i}px !important;
+  }
+  .f#{$i} {
+    font-size: #{$i}px !important;
+  }
+}
+.ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+//弹性盒子
+.flexbox {
+  display: flex;
+}
+.flex {
+  flex: 1;
+}
+
+// 清除浮动
+.clearfix {
+  &:after {
+    content: "";
+    width: 0;
+    height: 0;
+    clear: both;
+    line-height: 0;
+    display: block;
+  }
+}
+
+//block
+.block-help {
+  color: #999;
+  font-size: 14px;
+  clear: both;
+  margin-top: 10px;
+  line-height: 1.5;
+}
+.block-title {
+  color: #333;
+  font-size: 14px;
+  padding: 5px 0;
+  margin: 10px 0;
+  line-height: 1.5;
+  background: #f8f8f8;
+  border-left: solid 4px $primary;
+  padding-left: 10px;
+  border-radius: 3px;
+}
+.block-line {
+  height: 0;
+  border-top: solid 1px #eee;
+  margin: 20px 0;
+}
+
+// 图片裁切
+.cover {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+// 响应式文字对齐
+@media screen and (min-width: 1920px) {
+  .xlr {
+    text-align: right;
+  }
+}
+@media screen and (min-width: 1200px) {
+  .lgr {
+    text-align: right;
+  }
+}
+@media screen and (min-width: 992px) {
+  .mdr {
+    text-align: right;
+  }
+}
+
+.tran {
+  transition: all 0.3s;
+}
+.full {
+  width: 100%;
+  height: 100%;
+}
+.zero {
+  left: 0;
+  top: 0;
+}
+.middle {
+  justify-content: center;
+  align-items: center;
+}
+
+//滚动
+.overy {
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.overx {
+  overflow-x: auto;
+  overflow-y: hidden;
+}

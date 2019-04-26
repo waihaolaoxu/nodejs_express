@@ -1,0 +1,121 @@
+<template>
+  <div class="login-page">
+    <div class="login-logo tc">
+      <img src="../assets/img/logo.png">
+    </div>
+    <div class="login-content">
+      <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm">
+        <el-form-item prop="name">
+          <el-input v-model="ruleForm.name" placeholder="请输登录名" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item prop="password">
+          <el-input v-model="ruleForm.password" placeholder="请输入密码" type="password" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="submitForm('ruleForm')" style="width:100%">登录</el-button>
+        </el-form-item>
+        <div class="tr">
+          <el-button type="text" @click="$router.push({name:'findpwd'})">忘记密码？</el-button>
+        </div>
+      </el-form>
+    </div>
+  </div>
+</template>
+<script>
+import login from "@/api/login";
+
+export default {
+  data() {
+    return {
+      ruleForm: {
+        name: "",
+        password: ""
+      },
+      rules: {
+        name: [
+          {
+            required: true,
+            message: "请输入登录名称",
+            trigger: "blur"
+          }
+        ],
+        password: [{ required: true, message: "请输入密码", trigger: "blur" }]
+      }
+    };
+  },
+  created(){
+    // 主页添加键盘事件,注意,不能直接在焦点事件上添加回车
+    document.onkeydown = (e)=>{
+      e = e || window.event;
+      if (e.keyCode == 13) {
+        this.submitForm("ruleForm");
+      }
+    };
+  },
+  methods: {
+    submitForm(formName) {
+      this.$refs[formName].validate(valid => {
+        if (valid) {
+          login.loginByUsername(this.ruleForm.name, this.ruleForm.password)
+            .then((res) => {
+              if(res.code === '200'){
+                login.getCurrentUser().then(res => {
+                  if(res.code === '200'){
+                    this.$store.commit("USERINFO_UPDATE", res.data);
+                    this.$ls.set("userinfo", JSON.stringify(res.data)); //这里存储，header组件内读取同步
+                    window.location.href = this.$route.query.callback || '/yx';//刷新页面为了执行util里更新userinfo状态信息
+                  }
+                });
+              }
+            })
+            .catch(res => {
+              console.log("error", res);
+            });
+        } else {
+          console.log("error submit!!");
+          return false;
+        }
+      });
+    }
+  }
+};
+</script>
+<style lang="scss" scoped>
+@media screen and (max-width: 768px) {
+  .login-page {
+    .login-logo {
+      margin-top: 50px;
+    }
+    .login-content {
+      width: auto;
+      margin: 0 10px;
+      padding: 40px 20px 20px;
+    }
+  }
+}
+.login-page {
+  background: url("../assets/img/loginbg.jpg") center;
+  background-size: cover;
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  overflow-y: auto;
+}
+.el-form-item:nth-child(3) {
+  margin-bottom: 5px;
+}
+.login-logo {
+  margin: 100px 0 30px;
+}
+.login-content {
+  width: 400px;
+  background-color: #fff;
+  padding: 60px 40px;
+  box-sizing: border-box;
+  border-radius: 5px;
+  margin: 0 auto 100px;
+}
+</style>
+
