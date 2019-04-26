@@ -2,7 +2,7 @@
  * @Author: qdlaoxu 
  * @Date: 2019-04-23 18:07:13 
  * @Last Modified by: qdlaoxu
- * @Last Modified time: 2019-04-24 18:18:07
+ * @Last Modified time: 2019-04-26 15:38:25
  */
 const entity = require('../entity/entity');
 
@@ -41,7 +41,7 @@ class baseModel extends entity {
     for (let x in data) {
       column.push(`${x} = '${data[x]}'`);
     }
-    let sql = ` UPDATE ${tableName} SET ${column.join(',')} WHERE ${idKey} = ${id}`;
+    let sql = `UPDATE ${tableName} SET ${column.join(',')} WHERE ${idKey} = ${id}`;
     return sql;
   }
   // 查列表

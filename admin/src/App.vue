@@ -18,8 +18,6 @@
     <transition name='scale'>
       <slide-layer :data="bigPic.data" :des="bigPic.des" :current="bigPic.current" v-if="bigPic.open" class="tran"></slide-layer>
     </transition>
-    <!-- 报名入口 -->
-    <activity-link v-if="isShow"></activity-link>
   </div>
 </template>
 <style scoped>
@@ -28,29 +26,13 @@
 import { mapGetters } from "vuex";
 import header from "./components/block/Header";
 import menu from "./components/block/Menu";
-import login from "@/api/login";
 export default {
-  name: "app",
-  data() {
-    return {};
-  },
-  watch: {
-    '$route' (val) {
-      if(val.name != "login" && val.name != "findpwd"){
-        login.getCurrentUser().then(() => {}); //过期登陆用
-      }
-      if (window._czc) {
-         window._czc.push(['_trackPageview', location.pathname+location.search, document.referrer])
-      }
-    }
-  },
-  created() {},
   components: {
     "v-header": header,
     "v-menu": menu
   },
   computed: {
-    ...mapGetters(["asideFolded", "bigPic"]),
+    ...mapGetters(["asideFolded","bigPic"]),
     isFullScreen() {
       if (typeof this.$route.meta.fullpage === "boolean") {
         return this.$route.meta.fullpage;
@@ -58,25 +40,6 @@ export default {
         return false;
       }
     },
-    isShow() {
-      switch (this.$route.meta.title) {
-        case "大转盘":
-        case "活动编辑":
-        case "中奖纪录":
-        case "拼团活动":
-        case "拼团活动编辑":
-        case "拼团活动用户":
-        case "海报管理":
-        case "礼品管理":
-        case "创建礼品":
-        case "礼品编辑":
-        case "礼品领取详情":
-        case "优惠券管理":
-          return true;
-        default:
-          return false;
-      }
-    }
   }
 };
 </script>

@@ -2,7 +2,7 @@
  * @Author: qdlaoxu 
  * @Date: 2019-04-19 17:48:00 
  * @Last Modified by: qdlaoxu
- * @Last Modified time: 2019-04-25 15:57:26
+ * @Last Modified time: 2019-04-26 15:20:29
  */
 
 const posts = require('../dao/posts');
@@ -41,7 +41,7 @@ function getPostsDetail(req, res, next) {
       }
       utils.returnView({
         template:'./index/archives',
-        data: data[0],
+        data: data,
         req: req,
         res:res
       })

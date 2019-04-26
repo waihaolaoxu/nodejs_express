@@ -10,7 +10,7 @@
             <i :class="value.icon"></i>
             <span slot="title" v-text="value.group"></span>
           </template>
-          <el-menu-item :index="value.href" v-for="(value, key) in value.list" :key="key" :route="{path:value.href}" @click="selectMenu(value.serviceType)">
+          <el-menu-item :index="value.href" v-for="(value, key) in value.list" :key="key" :route="{path:value.href}">
             {{value.name}}
           </el-menu-item>
         </el-submenu>
@@ -21,99 +21,30 @@
 
 <script>
 import { mapGetters } from "vuex";
-import tip from "@/api/tip";
 export default {
   data() {
     return {
-      openList:[],
+      openList:['group-0'],
       data: [
         {
           icon: "iconfont icon-yijin10-zixunanli",
-          group: "案例管理",
+          group: "文章管理",
           list: [
             {
-              id: "admin_clinic_case",
-              serviceType:"1211",
-              href: "/yx/case/list",
-              name: "案例管理"
+              href: "/posts/list",
+              name: "文章管理"
             },
             {
-              id: "admin_manage_media",
-              href: "/yx/material/list",
-              name: "素材库管理"
+              href: "/category/list",
+              name: "分类管理"
             },
             {
-              id: "admin_audit_media",
-              href: "/yx/material/checklist",
-              name: "待审核素材"
+              href: "/user/list",
+              name: "用户管理"
             },
-            {
-              id: "admin_select_media",
-              href: "/yx/material/search",
-              name: "素材检索"
-            }
           ]
-        },
-        {
-          group: "预约核销",
-          icon: "iconfont icon-yuyue",
-          list:[{
-            id:"promote_activity",
-            industryType:2,
-            href: "/yx/mouth_activity/writeoff",
-            name: "预约管理",
-          },{
-            id:"promote_activity",
-            industryType:2,
-            href: "/yx/verification/outside",
-            name: "活动核销",
-          }]
-        },
-        {
-          icon: "iconfont icon-huodong",
-          group: "营销中心",
-          list: [
-            {
-              id: "admin_user_big_wheel",
-              href: "/yx/rotate/list",
-              name: "大转盘"
-            },
-            {
-              id: "admin_user_setting_activity",
-              href: "/yx/setactivity/list",
-              name: "拼团活动"
-            },
-            {
-              id: "admin_clinic_post",
-              serviceType:"1215",
-              href: "/yx/poster/list",
-              name: "海报管理"
-            },
-            {
-              id: "admin_clinic_gift",
-              serviceType:"1216",
-              href: "/yx/gift/list",
-              name: "礼品管理"
-            },
-            {
-              id: "admin_setting_coupon",
-              serviceType:"1218",
-              href: "/yx/coupon/list",
-              name: "优惠券管理"
-            },
-            {
-              id: "store_verification",
-              href: "/yx/verification/index",
-              name: "到店核销"
-            },
-            {
-              id: "invitation_get_gift",//id是正确的
-              href: "/yx/invitationGift/list",
-              name: "邀请有礼"
-            }
-          ]
-        },
-      ],
+        }
+      ]
     };
   },
   created() {

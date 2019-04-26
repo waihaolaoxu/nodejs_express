@@ -1,15 +1,11 @@
 import Vue from "vue"
-import store from "./store/store"
 import Router from "vue-router"
 import Home from "./views/Home"
 import Login from "./views/Login"
-import Findpwd from "./views/Findpwd"
-import ChangePwd from "./views/ChangePwd"
 
 Vue.use(Router)
 
 const router = new Router({
-  mode: "history",
   routes: [
     {
       path: "/",
@@ -20,7 +16,7 @@ const router = new Router({
       component: Home
     },
     {
-      path: "/yx/login",
+      path: "/login",
       name: "login",
       meta: {
         title: "登陆",
@@ -29,30 +25,28 @@ const router = new Router({
       component: Login
     },
     {
-      path: "/yx/findpwd",
-      name: "findpwd",
+      path: "/posts/list",
+      name: "posts_list",
       meta: {
-        title: "找回密码",
-        fullpage: true
+        title: "文章管理"
       },
-      component: Findpwd
+      component: () => import("./views/posts/List")
     },
     {
-      path: "/yx/changepwd",
-      name: "changepwd",
+      path: "/posts/edit/:id",
+      name: "posts_edit",
       meta: {
-        title: "修改密码",
-        fullpage: true
+        title: "文章管理"
       },
-      component: ChangePwd
+      component: () => import("./views/posts/Edit")
     },
     {
-      path: "/yx/advise/list",
-      name: "advise_list",
+      path: "/posts/create",
+      name: "posts_create",
       meta: {
-        title: "咨询台"
+        title: "创建文章"
       },
-      component: () => import("./views/advise/List")
+      component: () => import("./views/posts/Edit")
     }
   ]
 })

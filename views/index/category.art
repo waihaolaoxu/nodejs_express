@@ -9,7 +9,7 @@
           <a href="/archives/{{$value.ID}}">{{$value.post_title}}</a>
         </p>
         <div class="text-muted">
-          <span title="发布日期"><i class="glyphicon glyphicon-calendar"></i> {{$value.post_date | date 'yyyy-MM-dd hh-mm:ss'}}</span>
+          <span title="发布日期"><i class="glyphicon glyphicon-calendar"></i> {{$value.posts_publish_time | date 'yyyy-MM-dd hh-mm:ss'}}</span>
           <span title="评论数"><i class="glyphicon glyphicon-list-alt"></i> {{$value.comment_count}}</span>
         </div>
       </li>

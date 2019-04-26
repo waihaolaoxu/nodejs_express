@@ -10,19 +10,11 @@
     "copy": "rm -rf ../yx_bms/src/main/resources/static/* && cp -r dist/. ../yx_bms/src/main/resources/static/"
   },
   "dependencies": {
-    "awe-dnd": "^0.3.1",
     "axios": "^0.18.0",
-    "echarts": "^4.2.0-rc.2",
     "element-ui": "^2.4.5",
-    "node-rsa": "^1.0.1",
-    "qiniu-js": "^2.5.3",
-    "uuid": "^3.3.2",
-    "v-charts": "^1.19.0",
     "vue": "^2.5.17",
-    "vue-cropper": "^0.4.8",
     "vue-localstorage": "^0.6.2",
     "vue-router": "^3.0.1",
-    "vuedraggable": "^2.16.0",
     "vuex": "^3.0.1"
   },
   "devDependencies": {

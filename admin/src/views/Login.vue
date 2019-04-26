@@ -1,51 +1,44 @@
 <template>
   <div class="login-page">
-    <div class="login-logo tc">
-      <img src="../assets/img/logo.png">
+    <div class="logo tc">
+      后台管理系统
     </div>
     <div class="login-content">
       <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm">
-        <el-form-item prop="name">
-          <el-input v-model="ruleForm.name" placeholder="请输登录名" autocomplete="off"></el-input>
+        <el-form-item prop="user_name">
+          <el-input v-model="ruleForm.user_name" placeholder="请输登录名" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item prop="password">
-          <el-input v-model="ruleForm.password" placeholder="请输入密码" type="password" autocomplete="off"></el-input>
+          <el-input v-model="ruleForm.user_pass" placeholder="请输入密码" type="password" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="submitForm('ruleForm')" style="width:100%">登录</el-button>
         </el-form-item>
-        <div class="tr">
-          <el-button type="text" @click="$router.push({name:'findpwd'})">忘记密码？</el-button>
-        </div>
       </el-form>
     </div>
   </div>
 </template>
 <script>
-import login from "@/api/login";
+import api from "@/config/api";
 
 export default {
   data() {
     return {
       ruleForm: {
-        name: "",
-        password: ""
+        user_name: "",
+        user_pass: ""
       },
       rules: {
-        name: [
-          {
-            required: true,
-            message: "请输入登录名称",
-            trigger: "blur"
-          }
+        user_name: [
+          { required: true, message: "请输入登录名称", trigger: "blur" }
         ],
-        password: [{ required: true, message: "请输入密码", trigger: "blur" }]
+        user_pass: [{ required: true, message: "请输入密码", trigger: "blur" }]
       }
     };
   },
-  created(){
+  created() {
     // 主页添加键盘事件,注意,不能直接在焦点事件上添加回车
-    document.onkeydown = (e)=>{
+    document.onkeydown = e => {
       e = e || window.event;
       if (e.keyCode == 13) {
         this.submitForm("ruleForm");
@@ -56,16 +49,13 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
-          login.loginByUsername(this.ruleForm.name, this.ruleForm.password)
-            .then((res) => {
-              if(res.code === '200'){
-                login.getCurrentUser().then(res => {
-                  if(res.code === '200'){
-                    this.$store.commit("USERINFO_UPDATE", res.data);
-                    this.$ls.set("userinfo", JSON.stringify(res.data)); //这里存储，header组件内读取同步
-                    window.location.href = this.$route.query.callback || '/yx';//刷新页面为了执行util里更新userinfo状态信息
-                  }
-                });
+          api
+            .login(this.ruleForm)
+            .then(res => {
+              if (res.code == 200) {
+                this.$store.commit("USERINFO_UPDATE", res.data);
+                this.$ls.set("userinfo", JSON.stringify(res.data)); //这里存储，header组件内读取同步
+                window.location.href = this.$route.query.callback || "/"; //刷新页面为了执行util里更新userinfo状态信息
               }
             })
             .catch(res => {
@@ -106,8 +96,10 @@ export default {
 .el-form-item:nth-child(3) {
   margin-bottom: 5px;
 }
-.login-logo {
+.logo {
   margin: 100px 0 30px;
+  color: #fff;
+  font-size: 28px;
 }
 .login-content {
   width: 400px;

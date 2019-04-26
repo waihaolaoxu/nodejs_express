@@ -4,8 +4,11 @@
       <li class="el-menu-item" @click="asideToggle">
         <i class="iconfont" :class="{'icon-dedent':!asideFolded,'icon-indent':asideFolded}"></i>
       </li>
+      <el-menu-item index="" @click="goIndex()">
+        首页
+      </el-menu-item>
       <el-submenu index="" class="login-info fr">
-        <template slot="title">{{userinfo.userName || ""}}</template>
+        <template slot="title">{{userinfo.user_nickname || ""}}</template>
         <el-menu-item index="" :route="{name:'changepwd'}">修改密码</el-menu-item>
         <el-menu-item index=""  @click="logout" class="text-danger">退出登录</el-menu-item>
       </el-submenu>
@@ -18,7 +21,7 @@
 
 <script>
 import { mapGetters } from "vuex";
-import login from "@/api/login.js";
+import api from "@/config/api";
 export default {
   data() {
     return {};
@@ -35,8 +38,11 @@ export default {
     window.onresize = this.checkWidth;
   },
   methods: {
+    goIndex(){
+      window.location.href="/";
+    },
     logout(){
-      login.logout().then(()=>{
+      api.logout().then(()=>{
         this.$ls.remove('userinfo');
         this.$store.commit('USERINFO_UPDATE',{});
         this.$router.replace({name:'login'});

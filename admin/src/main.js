@@ -8,20 +8,11 @@ import './plugins/element'
 import globalComponents from './components/index'
 Vue.use(globalComponents)
 
-// 拖动排序
-import VueDND from 'awe-dnd';
-Vue.use(VueDND);
 
-// 图表
-import VeLine from 'v-charts/lib/line.common'
-Vue.component(VeLine.name, VeLine)
 
 // axios 全局配置
 import './config/axios'
 
-// 常量配置
-import constant from './config/constant'
-Vue.use(constant)
 
 // 工具函数
 import { utils } from './config/utils';

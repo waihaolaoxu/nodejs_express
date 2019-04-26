@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Loading, Message } from 'element-ui';
 
 var instance = axios.create({
-  baseURL: '/bms',
+  baseURL: '/api',
   timeout: 10000
 });
 // 添加请求拦截器
@@ -23,15 +23,15 @@ instance.interceptors.request.use(function (config) {
 // 添加响应拦截器
 instance.interceptors.response.use(function (res) {
   window.loading.close();
-  if (res.data.code === "100004") {
+  if (res.data.code == 1003) {
     Message({
-      message: res.data.message,
+      message: res.data.msg,
       type: 'error'
     });
-    window.location.href = "/yx/login?callback="+window.location.href;
-  } else if(res.data.code !== "200" && typeof res.data.code !== "undefined") {
+    window.location.href = "/#/login?callback="+window.location.href;
+  } else if(res.data.code != 200 && typeof res.data.code !== "undefined") {
     Message({
-      message: res.data.message,
+      message: res.data.msg,
       type: 'error'
     });
   }

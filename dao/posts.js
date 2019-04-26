@@ -2,7 +2,7 @@
  * @Author: qdlaoxu 
  * @Date: 2019-04-24 10:29:44 
  * @Last Modified by: qdlaoxu
- * @Last Modified time: 2019-04-25 16:55:37
+ * @Last Modified time: 2019-04-26 15:37:02
  */
 
 const baseModel = require('./baseModel');
@@ -16,7 +16,7 @@ class Posts extends baseModel {
     this.rows = 20;
   }
 
-  // 获取帖子列表
+  // 获取帖子列表 TODO 状态要做活
   getList(req, callback) {
     let page = req.body.page || req.params.page || this.page;
     let rows = req.body.rows || req.params.rows || this.rows;
@@ -71,7 +71,7 @@ class Posts extends baseModel {
     });
     req.pool.query(sql, function (err, data, fields) {
       if (err) throw err;
-      callback && callback(data)
+      callback && callback(data[0] || null)
     });
   }
 
@@ -110,12 +110,17 @@ class Posts extends baseModel {
   update(req, callback) {
     let date = utils.getDate();
     let userInfo = req.session.userInfo;
-    req.body.posts_author = userInfo ? userInfo.user_id : 0;
-    req.body.posts_status = typeof req.body.posts_status != 'undefined' ? req.body.posts_status : 1;
-    req.body.posts_update_time = date;
     let sql = this.updateSql({
       tableName: this.tableName,
-      data: req.body
+      data:{
+        posts_id:req.body.posts_id,
+        posts_title:req.body.posts_title,
+        posts_content:req.body.posts_content,
+        posts_status:req.body.posts_status,
+        posts_category:req.body.posts_category,
+        posts_author: userInfo ? userInfo.user_id : 0,
+        posts_update_time: date
+      }
     });
     req.pool.query(sql, function (err, data, fields) {
       if (err) throw err;
