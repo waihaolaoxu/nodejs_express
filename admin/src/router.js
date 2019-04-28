@@ -57,6 +57,14 @@ const router = new Router({
         title: "分类管理"
       },
       component: () => import("./views/category/List")
+    },
+    {
+      path: "/user/list",
+      name: "user_list",
+      meta: {
+        title: "用户管理"
+      },
+      component: () => import("./views/user/List")
     }
   ]
 })

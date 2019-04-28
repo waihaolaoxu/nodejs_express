@@ -4,7 +4,7 @@
       <el-row :gutter="20">
         <el-col :xs="24" :sm="12" :md="12" :lg="8" :xl="8">
           <div class="card">
-            <div class="iconfont icon-tianxieziliao" style="color:#9481f4;"></div>
+            <div class="iconfont icon-wenzhangguanli" style="color:#9481f4;"></div>
             <div class="tit f18">文章管理</div>
             <div class="des f14 mt15">文章管理</div>
             <el-button type="primary" plain size="medium" @click="$router.push({name:'posts_create'})">去创建</el-button>
@@ -12,18 +12,18 @@
         </el-col>
         <el-col :xs="24" :sm="12" :md="12" :lg="8" :xl="8">
           <div class="card">
-            <div class="iconfont icon-lingshoucaigou" style="color:#d27ff3;"></div>
+            <div class="iconfont icon-fenlei1" style="color:#d27ff3;"></div>
             <div class="tit f18">分类管理</div>
             <div class="des f14 mt15">分类管理</div>
-            <el-button type="primary" plain size="medium" @click="$router.push({name:'category_create)'})">去创建</el-button>
+            <el-button type="primary" plain size="medium" @click="$router.push({name:'category_list'})">去创建</el-button>
           </div>
         </el-col>
         <el-col :xs="24" :sm="12" :md="12" :lg="8" :xl="8">
           <div class="card">
-            <div class="iconfont icon-xitongguanli-" style="color:#f482b6;"></div>
+            <div class="iconfont icon-yonghu" style="color:#f482b6;"></div>
             <div class="tit f18">用户管理</div>
             <div class="des f14 mt15">用户管理</div>
-            <el-button type="primary" plain size="medium" @click="$router.push({name:'user_create'})">去创建</el-button>
+            <el-button type="primary" plain size="medium" @click="$router.push({name:'user_list'})">去创建</el-button>
           </div>
         </el-col>
         <!-- <el-col :xs="24" :sm="12" :md="12" :lg="8" :xl="8">

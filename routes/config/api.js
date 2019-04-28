@@ -2,7 +2,7 @@
  * @Author: qdlaoxu 
  * @Date: 2019-04-24 19:07:44 
  * @Last Modified by: qdlaoxu
- * @Last Modified time: 2019-04-26 14:31:04
+ * @Last Modified time: 2019-04-28 20:23:09
  */
 
 module.exports = [
@@ -43,7 +43,27 @@ module.exports = [
   {
     "path": "/category/list",
     "handler": "queryCategoryList",
-    "login":false
+    "login": false
+  },
+  {
+    "path": "/user/create",
+    "handler": "createUser",
+  },
+  {
+    "path": "/user/delete",
+    "handler": "deleteUser",
+  },
+  {
+    "path": "/user/update",
+    "handler": "updateUser",
+  },
+  {
+    "path": "/user/list",
+    "handler": "queryUserList",
+  },
+  {
+    "path": "/user/info",
+    "handler": "queryUserInfo",
   },
   {
     "path": "/user/login",
@@ -53,6 +73,6 @@ module.exports = [
   {
     "path": "/user/loginout",
     "handler": "loginOut",
-    "login":false
+    "login": false
   }
 ]

@@ -2,7 +2,7 @@
  * @Author: qdlaoxu 
  * @Date: 2019-04-19 17:48:00 
  * @Last Modified by: qdlaoxu
- * @Last Modified time: 2019-04-28 14:32:33
+ * @Last Modified time: 2019-04-28 20:25:29
  */
 
 const category = require('../dao/category');
@@ -33,7 +33,6 @@ function createPosts(req, res, next) {
 
 // 删除帖子
 function deletePosts(req, res, next) {
-
   let params = {
     req,
     condition: {
@@ -131,7 +130,7 @@ function deleteCategory(req, res, next) {
   let category_id = req.body.category_id;
   posts.getNumber({ req, condition: { posts_category: category_id } }, total => {
     if (total > 0) {
-      utils.returnError(res,1004);
+      utils.returnError(res, 1004);
     } else {
       let params = {
         req,
@@ -170,11 +169,99 @@ function queryCategoryList(req, res, next) {
   });
 }
 
+// 查询用户列表
+function queryUserList(req, res, next) {
+  let params = {
+    req
+  }
+  user.getUser(params, data => {
+    utils.returnSuccess(res, data);
+  });
+}
+
+// 增加用户
+function createUser(req, res, next) {
+  let { user_id } = req.session.userInfo;
+  if (user_id == 1) {
+    let params = {
+      req,
+      body: {
+        user_nickname: req.body.user_nickname,
+        user_name: req.body.user_name,
+        user_name: req.body.user_pass
+      }
+    }
+    user.createUser(params, data => {
+      utils.returnSuccess(res, data);
+    });
+  } else {
+    utils.returnError(res, 1005);
+  }
+}
+
+// 删除用户
+function deleteUser(req, res, next) {
+  let { user_id } = req.session.userInfo;
+  if (user_id == 1 && req.body.user_id != user_id) {
+    let params = {
+      req,
+      condition: {
+        user_id: req.body.user_id
+      }
+    }
+    user.deleteUser(params, data => {
+      utils.returnSuccess(res, data);
+    });
+  } else {
+    utils.returnError(res, 1005);
+  }
+}
+
+// 更新用户
+function updateUser(req, res, next) {
+  let { user_id } = req.session.userInfo;
+  if (user_id == 1 || user_id == req.body.user_id) {
+    let params = {
+      req,
+      body: {
+        user_id: req.body.user_id,
+        user_nickname: req.body.user_nickname,
+        user_name: req.body.user_name,
+        user_pass: req.body.user_pass
+      }
+    }
+    user.updateUser(params, data => {
+      utils.returnSuccess(res, data);
+    });
+  } else {
+    utils.returnError(res, 1005);
+  }
+}
+
+// 用户信息
+function queryUserInfo(req, res, next) {
+  let { user_id } = req.session.userInfo;
+  if (user_id == 1 || user_id == req.body.user_id) {
+    let params = {
+      req,
+      condition: {
+        user_id: req.body.user_id
+      }
+    }
+    user.getUser(params, data => {
+      utils.returnSuccess(res, data[0]);
+    });
+  } else {
+    utils.returnError(res, 1005);
+  }
+}
+
+
 // 登陆
 function loginIn(req, res, next) {
   let params = {
     req,
-    body: {
+    condition: {
       user_name: req.body.user_name,
       user_pass: utils.encrypt(req.body.user_pass)
     }
@@ -209,6 +296,11 @@ module.exports = {
   deleteCategory,
   updateCategory,
   queryCategoryList,
+  createUser,
+  deleteUser,
+  updateUser,
+  queryUserList,
+  queryUserInfo,
   loginIn,
   loginOut
 }

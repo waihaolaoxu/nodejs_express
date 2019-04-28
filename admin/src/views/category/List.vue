@@ -3,7 +3,7 @@
     <el-tab-pane :label="$route.meta.title">
       <div class="list-box">
         <div class="list-header tr">
-          <el-button icon="el-icon-plus" size="small" style="margin-bottom:15px" @click="$router.push({name:'posts_create'})">创建</el-button>
+          <el-button icon="el-icon-plus" size="small" style="margin-bottom:15px" @click="createCategory()">创建</el-button>
         </div>
         <div class="list-body">
           <el-table :data="data" size="small">
@@ -13,7 +13,7 @@
             </el-table-column>
             <el-table-column label="操作" width="250">
               <template slot-scope="scope">
-                <el-button @click="$router.push({name:'category_edit',params:{id:scope.row.category_id}})" size="mini">编辑</el-button>
+                <el-button @click="editCategory(scope.row)" size="mini">编辑</el-button>
                 <el-button size="mini" type="danger" @click="del(scope.row.category_id)">删除</el-button>
               </template>
             </el-table-column>
@@ -50,7 +50,7 @@ export default {
         type: "warning"
       })
         .then(() => {
-          api.deletePosts({ category_id: id }).then(res => {
+          api.deleteCategory({ category_id: id }).then(res => {
             if (res.code == 200) {
               this.getData();
             }
@@ -58,39 +58,43 @@ export default {
         })
         .catch(() => {});
     },
-    edit(id) {
-      this.$prompt("分类名称", id ? "分类编辑" : "创建分类", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
+    createCategory() {
+      this.$prompt("分类名称", "创建分类", {
         inputPattern: /^\S+$/,
         inputErrorMessage: "分类名称不能为空！"
       })
         .then(({ value }) => {
-          if (id) {
-            api
-              .updateCategory({
-                category_id: id,
-                category_name: value
-              })
-              .then(res => {
-                if(res.code == 200){
-                  this.$message.success("创建成功！");
-                  this.getData();
-                }
-              });
-          }else{
-            api
-              .createCategory({
-                category_id: id,
-                category_name: value
-              })
-              .then(res => {
-                if(res.code == 200){
-                  this.$message.success("创建成功！");
-                  this.getData();
-                }
-              });
-          }
+          api
+            .createCategory({
+              category_name: value
+            })
+            .then(res => {
+              if (res.code == 200) {
+                this.$message.success("创建成功！");
+                this.getData();
+              }
+            });
+        })
+        .catch(() => {});
+    },
+    editCategory(data) {
+      this.$prompt("分类名称", "分类编辑", {
+        inputPattern: /^\S+$/,
+        inputValue:data.category_name,
+        inputErrorMessage: "分类名称不能为空！"
+      })
+        .then(({ value }) => {
+          api
+            .updateCategory({
+              category_id: data.category_id,
+              category_name: value
+            })
+            .then(res => {
+              if (res.code == 200) {
+                this.$message.success("更新成功！");
+                this.getData();
+              }
+            });
         })
         .catch(() => {});
     }

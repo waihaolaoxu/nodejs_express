@@ -2,7 +2,7 @@
  * @Author: qdlaoxu 
  * @Date: 2019-04-26 11:20:45 
  * @Last Modified by: qdlaoxu
- * @Last Modified time: 2019-04-28 15:31:42
+ * @Last Modified time: 2019-04-28 20:21:35
  */
 
 import { ajaxByObj } from './utils'
@@ -43,6 +43,21 @@ const api = {
   },
   updateCategory(data) {// 创建分类
     return ajaxByObj('/category/update', data)
+  },
+  getUserList(data) {// 获取用户列表
+    return ajaxByObj('/user/list', data)
+  },
+  createUser(data) {// 增用户
+    return ajaxByObj('/user/create', data)
+  },
+  deleteUser(data) {// 删用户
+    return ajaxByObj('/user/delete', data)
+  },
+  updateUser(data) {// 改用户
+    return ajaxByObj('/user/update', data)
+  },
+  getUserInfo(data) {// 用户信息
+    return ajaxByObj('/user/info', data)
   },
 }
 
