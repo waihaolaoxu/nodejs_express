@@ -36,7 +36,8 @@ const router = new Router({
       path: "/posts/edit/:id",
       name: "posts_edit",
       meta: {
-        title: "文章管理"
+        light:"/posts/list",
+        title: "编辑文章"
       },
       component: () => import("./views/posts/Edit")
     },
@@ -44,9 +45,18 @@ const router = new Router({
       path: "/posts/create",
       name: "posts_create",
       meta: {
+        light:"/posts/list",
         title: "创建文章"
       },
       component: () => import("./views/posts/Edit")
+    },
+    {
+      path: "/category/list",
+      name: "category_list",
+      meta: {
+        title: "分类管理"
+      },
+      component: () => import("./views/category/List")
     }
   ]
 })

@@ -12,7 +12,7 @@
         <el-form-item label="文章分类" prop="posts_category" required>
           <el-select v-model="ruleForm.posts_category" placeholder="文章分类">
             <el-option value="">请选择</el-option>
-            <el-option v-for="(v,k) in category" :key="k" :value="k" :label="v.category_name"></el-option>
+            <el-option v-for="(v,k) in category" :key="k" :value="v.category_id" :label="v.category_name"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="是否显示" prop="posts_status" required>

@@ -1,7 +1,7 @@
 <template>
   <div class="aside-wrap">
     <div class="logo">
-      <router-link to="/">管理后台</router-link>
+      <router-link to="/">BLOG管理后台</router-link>
     </div>
     <div class="menu-wrap">
       <el-menu :default-active="activePath" background-color="#324157" :default-openeds="openList" text-color="#B4BCCC" active-text-color="#fff" style="border-right:0" router>
@@ -27,7 +27,7 @@ export default {
       openList:['group-0'],
       data: [
         {
-          icon: "iconfont icon-yijin10-zixunanli",
+          icon: "iconfont icon-shezhi1",
           group: "文章管理",
           list: [
             {

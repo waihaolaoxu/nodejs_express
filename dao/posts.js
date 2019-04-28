@@ -2,129 +2,90 @@
  * @Author: qdlaoxu 
  * @Date: 2019-04-24 10:29:44 
  * @Last Modified by: qdlaoxu
- * @Last Modified time: 2019-04-26 15:37:02
+ * @Last Modified time: 2019-04-28 11:53:45
  */
 
 const baseModel = require('./baseModel');
-const utils = require('../utils/utils');
 
 class Posts extends baseModel {
   constructor() {
     super();
     this.tableName = "posts";
-    this.page = 1;
-    this.rows = 20;
   }
 
-  // 获取帖子列表 TODO 状态要做活
-  getList(req, callback) {
-    let page = req.body.page || req.params.page || this.page;
-    let rows = req.body.rows || req.params.rows || this.rows;
-    let category_id = req.body.category_id || req.params.category_id || "";
-    let condition = { //查询条件
-      posts_status: 1,
-    }
-    if(category_id){
-      condition.posts_category = category_id;
-    }
+  // 获取帖子列表
+  getList({ req, page, rows, condition, sortColumn, sort }, callback) {
     let sql = this.selectSql({
-      tableName: this.tableName,
-      condition:condition,
-      page,
-      rows,
-      sortColumn: "posts_id", //排序字段
-      sort: "desc" //倒序
+      tableName: this.tableName,//表名
+      condition, //查询条件
+      page, //当前页
+      rows, //每页条数
+      sortColumn, //排序字段
+      sort //排序方式
     });
-    req.pool.query(sql, (err, list, fields) => {
+    req.pool.query(sql, (err, data, fields) => {
       if (err) throw err;
-      let condition = { //查询条件
-        posts_status: 1,
-      }
-      if(category_id){
-        condition.posts_category = category_id;
-      }
-      let sql = this.selectCountSql({
-        tableName: this.tableName,
-        condition: condition
-      })
-      req.pool.query(sql, (err, data, fields) => {
-        if (err) throw err;
-        let total = data[0].total;
-        callback && callback({
-          list: list,
-          page: Number(page),
-          rows: Number(rows),
-          total: total,
-          page_total: Math.ceil(total / rows)
-        });
-      })
+      callback(data);
     });
+  }
+
+  // 获取帖子总数
+  getNumber({ req, condition }, callback) {
+    let sql = this.selectCountSql({
+      tableName: this.tableName,
+      condition
+    });
+    req.pool.query(sql, (err, data, fields) => {
+      if (err) throw err;
+      callback(data[0].total);
+    })
   }
 
   // 获取帖子详情
-  getDetaile(req, callback) {
+  getDetaile({ req, condition }, callback) {
     let sql = this.selectSql({
       tableName: this.tableName,
-      condition:{
-        posts_id:req.body.posts_id || req.params.id
-      }
+      condition
     });
     req.pool.query(sql, function (err, data, fields) {
       if (err) throw err;
-      callback && callback(data[0] || null)
+      callback(data[0] || null)
     });
   }
 
   // 创建帖子
-  create(req, callback) {
-    let date = utils.getDate();
-    let userInfo = req.session.userInfo;
-    req.body.posts_author = userInfo ? userInfo.user_id : 0;
-    req.body.posts_status = 1;
-    req.body.posts_publish_time = date;
-    req.body.posts_create_time = date;
-    req.body.posts_update_time = date;
+  create({req,body}, callback) {
     let sql = this.insertSql({
       tableName: this.tableName,
-      body: req.body
+      body
     });
     req.pool.query(sql, function (err, data, fields) {
       if (err) throw err;
-      callback && callback()
+      callback()
     });
   }
 
   // 删除帖子
-  delete(req, callback) {
+  delete({req,condition}, callback) {
     let sql = this.deleteSql({
       tableName: this.tableName,
-      condition: req.body
+      condition
     });
     req.pool.query(sql, function (err, data, fields) {
       if (err) throw err;
-      callback && callback()
+      callback()
     });
   }
 
   // 修改帖子
-  update(req, callback) {
-    let date = utils.getDate();
-    let userInfo = req.session.userInfo;
+  update({req,body}, callback) {
     let sql = this.updateSql({
       tableName: this.tableName,
-      data:{
-        posts_id:req.body.posts_id,
-        posts_title:req.body.posts_title,
-        posts_content:req.body.posts_content,
-        posts_status:req.body.posts_status,
-        posts_category:req.body.posts_category,
-        posts_author: userInfo ? userInfo.user_id : 0,
-        posts_update_time: date
-      }
+      body
     });
     req.pool.query(sql, function (err, data, fields) {
       if (err) throw err;
-      callback && callback()
+      callback()
     });
   }
 

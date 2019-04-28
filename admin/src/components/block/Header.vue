@@ -5,7 +5,7 @@
         <i class="iconfont" :class="{'icon-dedent':!asideFolded,'icon-indent':asideFolded}"></i>
       </li>
       <el-menu-item index="" @click="goIndex()">
-        首页
+        网站首页
       </el-menu-item>
       <el-submenu index="" class="login-info fr">
         <template slot="title">{{userinfo.user_nickname || ""}}</template>

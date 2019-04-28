@@ -2,7 +2,7 @@
  * @Author: qdlaoxu 
  * @Date: 2019-04-23 18:07:13 
  * @Last Modified by: qdlaoxu
- * @Last Modified time: 2019-04-26 15:38:25
+ * @Last Modified time: 2019-04-28 11:44:09
  */
 const entity = require('../entity/entity');
 
@@ -34,12 +34,12 @@ class baseModel extends entity {
     return sql;
   }
   // 改
-  updateSql({ tableName, data = {} }) {
+  updateSql({ tableName, body = {} }) {
     let idKey = this[tableName].id;
-    let id = data[idKey];
+    let id = body[idKey];
     let column = [];
-    for (let x in data) {
-      column.push(`${x} = '${data[x]}'`);
+    for (let x in body) {
+      column.push(`${x} = '${body[x]}'`);
     }
     let sql = `UPDATE ${tableName} SET ${column.join(',')} WHERE ${idKey} = ${id}`;
     return sql;
@@ -54,7 +54,7 @@ class baseModel extends entity {
     if (where.length) {
       sql += ` WHERE ${where.join(' AND ')}`
     }
-    if (sort) {
+    if (sortColumn) {
       sql += ` ORDER BY ${sortColumn} ${sort || 'DESC'}`
     }
     if (page && rows) {

@@ -2,7 +2,7 @@
  * @Author: qdlaoxu 
  * @Date: 2019-04-24 10:29:44 
  * @Last Modified by: qdlaoxu
- * @Last Modified time: 2019-04-25 17:56:10
+ * @Last Modified time: 2019-04-28 13:28:15
  */
 
 const baseModel = require('./baseModel');
@@ -15,17 +15,14 @@ class Category extends baseModel {
   }
 
   // 查询
-  getUser(req,callback){
-    if(req.body.user_pass){
-      req.body.user_pass = utils.encrypt(req.body.user_pass);
-    }
+  getUser({req,condition},callback){
     let sql = this.selectSql({
       tableName: this.tableName,
-      condition: req.body
+      condition
     });
     req.pool.query(sql, (err, data, fields) => {
       if (err) throw err;
-      callback && callback(data);
+      callback(data);
     });
   }
 }

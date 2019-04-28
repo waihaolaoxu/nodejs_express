@@ -33,12 +33,12 @@
             </el-table-column>
             <el-table-column prop="posts_title" label="标题">
             </el-table-column>
-            <el-table-column prop="posts_category" label="分类">
+            <el-table-column prop="category_name" label="分类">
             </el-table-column>
             <el-table-column prop="d" label="状态">
               <template slot-scope="scope">
                 <el-tag type="success" size="mini" v-if="scope.row.posts_status==1">显示</el-tag>
-                <el-tag size="mini" v-else>隐藏</el-tag>
+                <el-tag type="info" size="mini" v-else>隐藏</el-tag>
               </template>
             </el-table-column>
             <el-table-column prop="d" label="发布时间">
@@ -101,7 +101,7 @@ export default {
         }
       })
     },
-    // 下架
+    // 删除
     del(id) {
       this.$confirm("确认删除吗?", "提示", {
         type: "warning"

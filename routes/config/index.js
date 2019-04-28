@@ -2,7 +2,7 @@
  * @Author: qdlaoxu 
  * @Date: 2019-04-24 19:08:15 
  * @Last Modified by: qdlaoxu
- * @Last Modified time: 2019-04-25 16:35:51
+ * @Last Modified time: 2019-04-28 11:27:48
  */
 
 module.exports = [
@@ -23,7 +23,7 @@ module.exports = [
     "handler": "getPostsList"
   },
   {
-    "path": "/archives/:id",
+    "path": "/archives/:posts_id",
     "handler": "getPostsDetail"
   }
 ]

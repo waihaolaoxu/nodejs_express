@@ -2,11 +2,10 @@
  * @Author: qdlaoxu 
  * @Date: 2019-04-24 10:29:44 
  * @Last Modified by: qdlaoxu
- * @Last Modified time: 2019-04-26 19:08:54
+ * @Last Modified time: 2019-04-28 14:07:08
  */
 
 const baseModel = require('./baseModel');
-const utils = require('../utils/utils');
 
 class Category extends baseModel {
   constructor() {
@@ -15,63 +14,61 @@ class Category extends baseModel {
   }
 
   // 创建
-  create(req, callback) {
+  create({req,body}, callback) {
     let sql = this.insertSql({
       tableName: this.tableName,
-      body: req.body
+      body
     });
     req.pool.query(sql, function (err, data, fields) {
       if (err) throw err;
-      callback && callback()
+      callback()
     });
   }
 
   // 删除
-  delete(req, callback) {
+  delete({req,condition}, callback) {
     let sql = this.deleteSql({
       tableName: this.tableName,
-      condition: req.body
+      condition
     });
     req.pool.query(sql, function (err, data, fields) {
       if (err) throw err;
-      callback && callback()
+      callback()
     });
   }
 
   // 修改
-  update(req,callback){
+  update({req,body}, callback) {
     let sql = this.updateSql({
       tableName: this.tableName,
-      data: req.body
+      body
     });
     req.pool.query(sql, function (err, data, fields) {
       if (err) throw err;
-      callback && callback()
+      callback()
     });
   }
-  
+
   // 查询
-  getList(req,callback){
+  getList({req}, callback) {
     let sql = this.selectSql({
       tableName: this.tableName,
     });
     req.pool.query(sql, (err, data, fields) => {
       if (err) throw err;
-      callback && callback(data);
+      callback(data);
     });
   }
 
   // 查询详情
-  getDetaile(req,callback){
+  getDetaile({ req, condition }, callback) {
     let sql = this.selectSql({
       tableName: this.tableName,
-      condition:{
-        category_id:req.body.category_id || req.params.category_id
-      }
+      condition
     });
     req.pool.query(sql, (err, data, fields) => {
       if (err) throw err;
-      callback && callback(data[0]);
+      callback(data[0]);
     });
   }
 }
