@@ -79,7 +79,7 @@ export default {
         posts_id:this.$route.params.id
       }).then(res => {
         if (res.code == 200) {
-          this.ruleForm = res.data
+          this.ruleForm = res.data[0]
         }
       });
     },

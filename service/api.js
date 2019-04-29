@@ -2,7 +2,7 @@
  * @Author: qdlaoxu 
  * @Date: 2019-04-19 17:48:00 
  * @Last Modified by: qdlaoxu
- * @Last Modified time: 2019-04-29 19:37:26
+ * @Last Modified time: 2019-04-29 20:15:58
  */
 
 const category = require('../dao/category');
@@ -19,8 +19,9 @@ function createPosts(req, res, next) {
     body: {
       posts_title: req.body.posts_title,
       posts_content: req.body.posts_content,
-      posts_author: userInfo ? userInfo.user_id : 0,
-      posts_status: 1,
+      posts_category: req.body.posts_category,
+      posts_author:userInfo.user_id,
+      posts_status: req.body.posts_status,
       posts_publish_time: date,
       posts_create_time: date,
       posts_update_time: date
@@ -55,7 +56,7 @@ function updatePosts(req, res, next) {
       posts_content: req.body.posts_content,
       posts_status: req.body.posts_status,
       posts_category: req.body.posts_category,
-      posts_author: userInfo ? userInfo.user_id : 0,
+      posts_author:userInfo.user_id,
       posts_update_time: utils.getDate()
     }
   }
@@ -86,7 +87,9 @@ function queryPostsList(req, res, next) {
       category.getList({ req }, category => {
         let cat = utils.arrayToObj('category_id', category);
         utils.each(list, function (i, d) {
-          d.category_name = cat[d.posts_category].category_name;
+          if(d.posts_category && cat[d.posts_category]){
+            d.category_name = cat[d.posts_category].category_name;
+          }
         });
         utils.returnSuccess(res, {
           list,
