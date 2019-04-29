@@ -2,7 +2,7 @@
  * @Author: qdlaoxu 
  * @Date: 2019-04-24 19:07:44 
  * @Last Modified by: qdlaoxu
- * @Last Modified time: 2019-04-29 14:58:25
+ * @Last Modified time: 2019-04-29 19:28:30
  */
 
 module.exports = [
@@ -53,6 +53,10 @@ module.exports = [
   {
     "path": "/user/update",
     "handler": "updateUser"
+  },
+  {
+    "path": "/user/updatepwd",
+    "handler": "updateUserPwd"
   },
   {
     "path": "/user/list",

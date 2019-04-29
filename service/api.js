@@ -2,7 +2,7 @@
  * @Author: qdlaoxu 
  * @Date: 2019-04-19 17:48:00 
  * @Last Modified by: qdlaoxu
- * @Last Modified time: 2019-04-29 14:54:54
+ * @Last Modified time: 2019-04-29 19:37:26
  */
 
 const category = require('../dao/category');
@@ -222,7 +222,7 @@ function deleteUser(req, res, next) {
 // 更新用户
 function updateUser(req, res, next) {
   let { user_id } = req.session.userInfo;
-  if (user_id == 1 || user_id == req.body.user_id) {
+  if (user_id == 1) {
     let params = {
       req,
       body: {
@@ -238,10 +238,31 @@ function updateUser(req, res, next) {
   }
 }
 
+// 修改密码
+function updateUserPwd(req, res, next) {
+  let { user_id } = req.session.userInfo;
+  let params = {
+    req,
+    body: {
+      user_id: user_id,
+      user_pass: utils.encrypt(req.body.user_pass)
+    }
+  }
+  user.getUser({req,condition: {user_id: user_id}}, data => {
+    if(data[0].user_pass == utils.encrypt(req.body.user_oldpass)){
+      user.updateUser(params, data => {
+        utils.returnSuccess(res, data);
+      });
+    }else{
+      utils.returnError(res,1006);
+    }
+  });
+}
+
 // 用户信息
 function queryUserInfo(req, res, next) {
   let { user_id } = req.session.userInfo;
-  if (user_id == 1 || user_id == req.body.user_id) {
+  if (user_id == 1) {
     let params = {
       req,
       condition: {
@@ -301,6 +322,7 @@ module.exports = {
   updateUser,
   queryUserList,
   queryUserInfo,
+  updateUserPwd,
   loginIn,
   loginOut
 }

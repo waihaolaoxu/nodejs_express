@@ -59,6 +59,9 @@ const api = {
   getUserInfo(data) {// 用户信息
     return ajaxByObj('/user/info', data)
   },
+  updateUserPwd(data) {// 更新密码
+    return ajaxByObj('/user/updatepwd', data)
+  },
 }
 
 export default api;
