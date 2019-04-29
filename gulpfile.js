@@ -37,7 +37,7 @@ gulp.task('styles', () => {
         precision: 10,
         includePaths: ['.']
       }).on('error', $.sass.logError))
-      .pipe($.if(dev, gulp.dest('.tmp/css'), gulp.dest('dist/css'))) //连接第三方css
+      .pipe($.if(dev, gulp.dest('public/.tmp/css'), gulp.dest('public/dist/css'))) //连接第三方css
   }
   gulp.src('public/css/*.scss')
     .pipe($.plumber())
@@ -50,7 +50,7 @@ gulp.task('styles', () => {
       browsers: ['> 1%', 'last 2 versions', 'Firefox ESR']
     }))
     .pipe($.if(dev, $.sourcemaps.write()))
-    .pipe($.if(dev, gulp.dest('.tmp/css'), gulp.dest('dist/css')))
+    .pipe($.if(dev, gulp.dest('public/.tmp/css'), gulp.dest('public/dist/css')))
 });
 
 
@@ -61,14 +61,14 @@ gulp.task('scripts', () => {
     .pipe($.babel())
     .pipe($.if(dev, $.sourcemaps.write('.')))
     .pipe($.if(!dev, $.uglify(config.uglify)))
-    .pipe($.if(dev, gulp.dest('.tmp/js'), gulp.dest('dist/scripts')))
+    .pipe($.if(dev, gulp.dest('public/.tmp/js'), gulp.dest('public/dist/scripts')))
 });
 
 
 gulp.task('images', () => {
   return gulp.src('public/images/**/*')
     // .pipe($.cache($.imagemin()))
-    .pipe(gulp.dest('dist/images'));
+    .pipe(gulp.dest('public/dist/images'));
 });
 
 
@@ -81,7 +81,7 @@ gulp.task('extras', () => {
 });
 
 
-gulp.task('clean', del.bind(null, ['.tmp']));
+gulp.task('clean', del.bind(null, ['public/.tmp']));
 
 
 gulp.task('vendorJs', () => {
@@ -91,7 +91,7 @@ gulp.task('vendorJs', () => {
       .pipe($.plumber())
       .pipe($.babel())
       .pipe($.uglify(config.uglify))
-      .pipe($.if(dev, gulp.dest('.tmp/js'), gulp.dest('dist/scripts')))
+      .pipe($.if(dev, gulp.dest('public/.tmp/js'), gulp.dest('public/dist/scripts')))
   }
 });
 
@@ -100,13 +100,13 @@ gulp.task('serve', () => {
   runSequence(['clean'], ['styles', 'scripts', 'vendorJs'], () => {
     gulp.watch('public/css/**/*.scss', ['styles']);
     gulp.watch('public/js/**/*.js', ['scripts']);
-    gulp.src('public/images/**/*').pipe(gulp.dest('.tmp/images'));
+    gulp.src('public/images/**/*').pipe(gulp.dest('public/.tmp/images'));
   });
 })
 
 
 //整体打包
-gulp.task('build-start', ['vendorJs', 'html', 'images', 'extras'], () => {
+gulp.task('build-start', ['vendorJs', 'styles', 'scripts', 'images', 'extras'], () => {
   return gulp.src('public/**/*').pipe($.size({
     title: 'build',
     gzip: true

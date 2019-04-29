@@ -32,8 +32,10 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 //静态资源
-app.use('/static', express.static('.tmp'));
-app.use('/static', express.static('dist'));
+app.use('/static', express.static('./public/.tmp'));
+app.use('/static', express.static('./public/dist'));
+app.use('/admin',express.static('./admin/dist'));
+app.use('/assets',express.static('./admin/dist/assets'));
 
 // 调用路由中间件
 routeConfig.forEach(d=>{
@@ -44,8 +46,8 @@ routeConfig.forEach(d=>{
 viewEngine(app);
 
 // 创建服务器
-app.listen(3000, function () {
-  console.log('Example app listening at http://localhost:3000');
+app.listen(8990, function () {
+  console.log('Example app listening at http://localhost:8990');
 });
 
 // 404 处理
