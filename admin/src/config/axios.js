@@ -28,7 +28,7 @@ instance.interceptors.response.use(function (res) {
       message: res.data.msg,
       type: 'error'
     });
-    window.location.href = "/#/login?callback="+window.location.href;
+    window.location.href = "/#/login";
   } else if(res.data.code != 200 && typeof res.data.code !== "undefined") {
     Message({
       message: res.data.msg,

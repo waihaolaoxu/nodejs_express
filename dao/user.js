@@ -2,7 +2,7 @@
  * @Author: qdlaoxu 
  * @Date: 2019-04-24 10:29:44 
  * @Last Modified by: qdlaoxu
- * @Last Modified time: 2019-04-28 20:12:57
+ * @Last Modified time: 2019-04-29 14:52:40
  */
 
 const baseModel = require('./baseModel');
@@ -19,10 +19,7 @@ class Category extends baseModel {
       tableName: this.tableName,
       condition
     });
-    req.pool.query(sql, (err, data, fields) => {
-      if (err) throw err;
-      callback(data);
-    });
+    this.queryFn({sql, req, callback});
   }
 
   // 增
@@ -31,10 +28,7 @@ class Category extends baseModel {
       tableName: this.tableName,
       body
     });
-    req.pool.query(sql, (err, data, fields) => {
-      if (err) throw err;
-      callback();
-    });
+    this.queryFn({sql, req, callback});
   }
 
   // 删
@@ -43,10 +37,7 @@ class Category extends baseModel {
       tableName: this.tableName,
       condition
     });
-    req.pool.query(sql, (err, data, fields) => {
-      if (err) throw err;
-      callback();
-    });
+    this.queryFn({sql, req, callback});
   }
 
   // 改
@@ -55,10 +46,7 @@ class Category extends baseModel {
       tableName: this.tableName,
       body
     });
-    req.pool.query(sql, (err, data, fields) => {
-      if (err) throw err;
-      callback();
-    });
+    this.queryFn({sql, req, callback});
   }
 }
 

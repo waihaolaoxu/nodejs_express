@@ -2,9 +2,10 @@
  * @Author: qdlaoxu 
  * @Date: 2019-04-23 18:07:13 
  * @Last Modified by: qdlaoxu
- * @Last Modified time: 2019-04-28 11:44:09
+ * @Last Modified time: 2019-04-29 14:40:02
  */
 const entity = require('../entity/entity');
+const logger = require('../utils/logger')('dao');
 
 class baseModel extends entity {
   constructor() {
@@ -12,8 +13,8 @@ class baseModel extends entity {
   }
 
   // 增
-  insertSql({tableName, body = {}}) {
-    let data = this.getCreateData({tableName,body});
+  insertSql({ tableName, body = {} }) {
+    let data = this.getCreateData({ tableName, body });
     let column = Object.keys(data).join(',');
     let value = [];
     for (let x in data) {
@@ -39,7 +40,9 @@ class baseModel extends entity {
     let id = body[idKey];
     let column = [];
     for (let x in body) {
-      column.push(`${x} = '${body[x]}'`);
+      if (x != idKey) {
+        column.push(`${x} = '${body[x]}'`);
+      }
     }
     let sql = `UPDATE ${tableName} SET ${column.join(',')} WHERE ${idKey} = ${id}`;
     return sql;
@@ -73,6 +76,16 @@ class baseModel extends entity {
       sql += ` WHERE ${where.join(' AND ')}`
     }
     return sql;
+  }
+  //执行查询及回调处理
+  queryFn({sql, req, callback}) {
+    req.pool.query(sql, function (err, data) {
+      if (err) {
+        logger.error(err);
+      } else {
+        callback(data);
+      }
+    });
   }
 }
 

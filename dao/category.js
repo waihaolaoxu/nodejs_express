@@ -2,7 +2,7 @@
  * @Author: qdlaoxu 
  * @Date: 2019-04-24 10:29:44 
  * @Last Modified by: qdlaoxu
- * @Last Modified time: 2019-04-28 14:07:08
+ * @Last Modified time: 2019-04-29 14:40:37
  */
 
 const baseModel = require('./baseModel');
@@ -14,50 +14,38 @@ class Category extends baseModel {
   }
 
   // 创建
-  create({req,body}, callback) {
+  create({ req, body }, callback) {
     let sql = this.insertSql({
       tableName: this.tableName,
       body
     });
-    req.pool.query(sql, function (err, data, fields) {
-      if (err) throw err;
-      callback()
-    });
+    this.queryFn({sql, req, callback});
   }
 
   // 删除
-  delete({req,condition}, callback) {
+  delete({ req, condition }, callback) {
     let sql = this.deleteSql({
       tableName: this.tableName,
       condition
     });
-    req.pool.query(sql, function (err, data, fields) {
-      if (err) throw err;
-      callback()
-    });
+    this.queryFn({sql, req, callback});
   }
 
   // 修改
-  update({req,body}, callback) {
+  update({ req, body }, callback) {
     let sql = this.updateSql({
       tableName: this.tableName,
       body
     });
-    req.pool.query(sql, function (err, data, fields) {
-      if (err) throw err;
-      callback()
-    });
+    this.queryFn({sql, req, callback});
   }
 
   // 查询
-  getList({req}, callback) {
+  getList({ req }, callback) {
     let sql = this.selectSql({
       tableName: this.tableName,
     });
-    req.pool.query(sql, (err, data, fields) => {
-      if (err) throw err;
-      callback(data);
-    });
+    this.queryFn({sql, req, callback});
   }
 
   // 查询详情
@@ -66,10 +54,7 @@ class Category extends baseModel {
       tableName: this.tableName,
       condition
     });
-    req.pool.query(sql, (err, data, fields) => {
-      if (err) throw err;
-      callback(data[0]);
-    });
+    this.queryFn({sql, req, callback});
   }
 }
 

@@ -55,7 +55,7 @@ export default {
               if (res.code == 200) {
                 this.$store.commit("USERINFO_UPDATE", res.data);
                 this.$ls.set("userinfo", JSON.stringify(res.data)); //这里存储，header组件内读取同步
-                window.location.href = this.$route.query.callback || "/"; //刷新页面为了执行util里更新userinfo状态信息
+                window.location.href = "/"; //刷新页面为了执行util里更新userinfo状态信息
               }
             })
             .catch(res => {

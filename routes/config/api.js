@@ -2,68 +2,65 @@
  * @Author: qdlaoxu 
  * @Date: 2019-04-24 19:07:44 
  * @Last Modified by: qdlaoxu
- * @Last Modified time: 2019-04-28 20:23:09
+ * @Last Modified time: 2019-04-29 14:58:25
  */
 
 module.exports = [
   {
     "path": "/posts/create",
-    "handler": "createPosts",
+    "handler": "createPosts"
   },
   {
     "path": "/posts/delete",
-    "handler": "deletePosts",
+    "handler": "deletePosts"
   },
   {
     "path": "/posts/update",
-    "handler": "updatePosts",
+    "handler": "updatePosts"
   },
   {
     "path": "/posts/list",
-    "handler": "queryPostsList",
-    "login": false
+    "handler": "queryPostsList"
   },
   {
     "path": "/posts/info",
-    "handler": "queryPostsDetaile",
-    "login": false
+    "handler": "queryPostsDetaile"
   },
   {
     "path": "/category/create",
-    "handler": "createCategory",
+    "handler": "createCategory"
   },
   {
     "path": "/category/delete",
-    "handler": "deleteCategory",
+    "handler": "deleteCategory"
   },
   {
     "path": "/category/update",
-    "handler": "updateCategory",
+    "handler": "updateCategory"
   },
   {
     "path": "/category/list",
-    "handler": "queryCategoryList",
-    "login": false
+    "handler": "queryCategoryList"
   },
   {
     "path": "/user/create",
-    "handler": "createUser",
+    "handler": "createUser"
   },
   {
     "path": "/user/delete",
-    "handler": "deleteUser",
+    "handler": "deleteUser"
   },
   {
     "path": "/user/update",
-    "handler": "updateUser",
+    "handler": "updateUser"
   },
   {
     "path": "/user/list",
-    "handler": "queryUserList",
+    "handler": "queryUserList"
   },
   {
     "path": "/user/info",
-    "handler": "queryUserInfo",
+    "handler": "queryUserInfo"
   },
   {
     "path": "/user/login",

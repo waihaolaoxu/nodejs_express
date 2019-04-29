@@ -2,7 +2,7 @@
  * @Author: qdlaoxu 
  * @Date: 2019-04-24 10:29:44 
  * @Last Modified by: qdlaoxu
- * @Last Modified time: 2019-04-28 11:53:45
+ * @Last Modified time: 2019-04-29 14:46:17
  */
 
 const baseModel = require('./baseModel');
@@ -23,10 +23,7 @@ class Posts extends baseModel {
       sortColumn, //排序字段
       sort //排序方式
     });
-    req.pool.query(sql, (err, data, fields) => {
-      if (err) throw err;
-      callback(data);
-    });
+    this.queryFn({sql, req, callback});
   }
 
   // 获取帖子总数
@@ -35,10 +32,7 @@ class Posts extends baseModel {
       tableName: this.tableName,
       condition
     });
-    req.pool.query(sql, (err, data, fields) => {
-      if (err) throw err;
-      callback(data[0].total);
-    })
+    this.queryFn({sql, req, callback});
   }
 
   // 获取帖子详情
@@ -47,10 +41,7 @@ class Posts extends baseModel {
       tableName: this.tableName,
       condition
     });
-    req.pool.query(sql, function (err, data, fields) {
-      if (err) throw err;
-      callback(data[0] || null)
-    });
+    this.queryFn({sql, req, callback});
   }
 
   // 创建帖子
@@ -59,10 +50,7 @@ class Posts extends baseModel {
       tableName: this.tableName,
       body
     });
-    req.pool.query(sql, function (err, data, fields) {
-      if (err) throw err;
-      callback()
-    });
+    this.queryFn({sql, req, callback});
   }
 
   // 删除帖子
@@ -71,10 +59,7 @@ class Posts extends baseModel {
       tableName: this.tableName,
       condition
     });
-    req.pool.query(sql, function (err, data, fields) {
-      if (err) throw err;
-      callback()
-    });
+    this.queryFn({sql, req, callback});
   }
 
   // 修改帖子
@@ -83,13 +68,8 @@ class Posts extends baseModel {
       tableName: this.tableName,
       body
     });
-    req.pool.query(sql, function (err, data, fields) {
-      if (err) throw err;
-      callback()
-    });
+    this.queryFn({sql, req, callback});
   }
-
-
 }
 
 module.exports = new Posts();

@@ -2,7 +2,7 @@
  * @Author: qdlaoxu 
  * @Date: 2019-04-19 17:48:00 
  * @Last Modified by: qdlaoxu
- * @Last Modified time: 2019-04-28 20:25:29
+ * @Last Modified time: 2019-04-29 14:54:54
  */
 
 const category = require('../dao/category');
@@ -82,6 +82,7 @@ function queryPostsList(req, res, next) {
   }
   posts.getList(params, list => {
     posts.getNumber({ req, condition }, total => {
+      total = total.length ? total[0].total : 0;
       category.getList({ req }, category => {
         let cat = utils.arrayToObj('category_id', category);
         utils.each(list, function (i, d) {
@@ -129,6 +130,7 @@ function createCategory(req, res, next) {
 function deleteCategory(req, res, next) {
   let category_id = req.body.category_id;
   posts.getNumber({ req, condition: { posts_category: category_id } }, total => {
+    total = total.length ? total[0].total : 0;
     if (total > 0) {
       utils.returnError(res, 1004);
     } else {
@@ -226,8 +228,6 @@ function updateUser(req, res, next) {
       body: {
         user_id: req.body.user_id,
         user_nickname: req.body.user_nickname,
-        user_name: req.body.user_name,
-        user_pass: req.body.user_pass
       }
     }
     user.updateUser(params, data => {

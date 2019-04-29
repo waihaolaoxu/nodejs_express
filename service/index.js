@@ -2,7 +2,7 @@
  * @Author: qdlaoxu 
  * @Date: 2019-04-19 17:48:00 
  * @Last Modified by: qdlaoxu
- * @Last Modified time: 2019-04-28 14:12:54
+ * @Last Modified time: 2019-04-29 14:51:03
  */
 
 const posts = require('../dao/posts');
@@ -29,7 +29,8 @@ function getPostsList(req, res, next) {
   }
   posts.getList(params, list => {
     posts.getNumber({ req, condition }, total => {
-      category.getList({req}, category => {
+      total = total.length ? total[0].total : 0;
+      category.getList({ req }, category => {
         let cat = utils.arrayToObj('category_id', category);
         utils.each(list, function (i, d) {
           d.category_name = cat[d.posts_category].category_name;
@@ -70,7 +71,7 @@ function getPostsDetail(req, res, next) {
       data.category_name = data2.category_name || "";
       utils.returnView({
         template: './index/archives',
-        data: data,
+        data: data[0],
         req: req,
         res: res
       })
