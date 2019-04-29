@@ -53,7 +53,7 @@ app.listen(8990, function () {
 // 404 处理
 app.use(function (req, res, next) {
   res.status(404).render('404');
-  logger.warn(req.path,req.params,req.body);
+  logger.warn(req.path,404,req.params);
 });
 
 // 错误处理

@@ -39,7 +39,7 @@ gulp.task('styles', () => {
       }).on('error', $.sass.logError))
       .pipe($.if(dev, gulp.dest('public/.tmp/css'), gulp.dest('public/dist/css'))) //连接第三方css
   }
-  gulp.src('public/css/*.scss')
+  gulp.src('public/src/css/*.scss')
     .pipe($.plumber())
     .pipe($.if(dev, $.sourcemaps.init()))
     .pipe($.sass.sync({
@@ -55,7 +55,7 @@ gulp.task('styles', () => {
 
 
 gulp.task('scripts', () => {
-  return gulp.src('public/js/**/*.js')
+  return gulp.src('public/src/js/**/*.js')
     .pipe($.plumber())
     .pipe($.if(dev, $.sourcemaps.init()))
     .pipe($.babel())
@@ -66,7 +66,7 @@ gulp.task('scripts', () => {
 
 
 gulp.task('images', () => {
-  return gulp.src('public/images/**/*')
+  return gulp.src('public/src/images/**/*')
     // .pipe($.cache($.imagemin()))
     .pipe(gulp.dest('public/dist/images'));
 });
@@ -98,9 +98,9 @@ gulp.task('vendorJs', () => {
 
 gulp.task('serve', () => {
   runSequence(['clean'], ['styles', 'scripts', 'vendorJs'], () => {
-    gulp.watch('public/css/**/*.scss', ['styles']);
-    gulp.watch('public/js/**/*.js', ['scripts']);
-    gulp.src('public/images/**/*').pipe(gulp.dest('public/.tmp/images'));
+    gulp.watch('public/src/css/**/*.scss', ['styles']);
+    gulp.watch('public/src/js/**/*.js', ['scripts']);
+    gulp.src('public/src/images/**/*').pipe(gulp.dest('public/.tmp/images'));
   });
 })
 
