@@ -1,5 +1,5 @@
 {{extend '../block/layout.art'}}
-{{block 'title'}} node+express {{/block}}
+{{block 'title'}} 前端老徐 {{/block}}
 {{block 'content'}}
 {{if data.list.length>0}}
 <table class="table table-hover">

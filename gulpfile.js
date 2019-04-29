@@ -74,10 +74,10 @@ gulp.task('images', () => {
 
 gulp.task('extras', () => {
   return gulp.src([
-    'public/*',
+    'public/src/*',
   ], {
     dot: true
-  }).pipe(gulp.dest('dist'));
+  }).pipe(gulp.dest('public/dist'));
 });
 
 

@@ -1,5 +1,5 @@
 {{extend '../block/layout.art'}}
-{{block 'title'}} node+express项目 {{/block}}
+{{block 'title'}} 前端老徐 {{data.posts_title}}{{/block}}
 {{block 'content'}}
 
 <h1>{{data.posts_title}}</h1>

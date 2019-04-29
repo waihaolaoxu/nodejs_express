@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <title>{{block 'title'}}前端老徐{{/block}}</title>
   <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+  <link rel="icon" href="/static/images/favicon.ico">
   <link rel="stylesheet" type="text/css" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="/static/css/style.css">
 </head>
@@ -19,7 +20,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="/">node+express</a>
+        <a class="navbar-brand" href="/">前端老徐</a>
       </div>
       <div class="collapse navbar-collapse navbar-ex1-collapse">
         <ul class="nav navbar-nav navbar-right">
@@ -32,14 +33,14 @@
     </div>
   </nav>
   {{if code!= 404}}
-  <!--<div class="topBanner"></div>-->
+  <div class="topBanner"></div>
   {{/if}}
   <div class="container" style="margin-top: 20px;">
     {{block 'content'}}{{/block}}
   </div>
   <footer class="tc">
     <div class="footer">
-      <p>Copyright © <script>document.write(new Date().getFullYear())</script> All rights reserved</p>
+      <p>Copyright © <script>document.write(new Date().getFullYear())</script> 前端老徐 All rights reserved</p>
       <p>京ICP备15016412号</p>
     </div>
   </footer>
