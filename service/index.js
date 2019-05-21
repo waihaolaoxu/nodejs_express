@@ -2,7 +2,7 @@
  * @Author: qdlaoxu 
  * @Date: 2019-04-19 17:48:00 
  * @Last Modified by: qdlaoxu
- * @Last Modified time: 2019-04-29 14:51:03
+ * @Last Modified time: 2019-05-05 09:30:22
  */
 
 const posts = require('../dao/posts');
@@ -33,7 +33,9 @@ function getPostsList(req, res, next) {
       category.getList({ req }, category => {
         let cat = utils.arrayToObj('category_id', category);
         utils.each(list, function (i, d) {
-          d.category_name = cat[d.posts_category].category_name;
+          if(d.posts_category){
+            d.category_name = cat[d.posts_category].category_name;
+          }
         });
         utils.returnView({
           template: './index/index',
@@ -61,14 +63,10 @@ function getPostsDetail(req, res, next) {
     }
   }
   posts.getDetaile(params, data => {
-    let params2 = {
-      req,
-      condition: {
-        category_id: data.posts_category
+    category.getDetaile({ req, condition: { category_id: data[0].posts_category } }, category => {
+      if (category.length == 1) {
+        data[0].category_name = category[0].category_name || "";
       }
-    }
-    category.getDetaile(params2, data2 => {
-      data.category_name = data2.category_name || "";
       utils.returnView({
         template: './index/archives',
         data: data[0],

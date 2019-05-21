@@ -1,6 +1,6 @@
 <template>
   <div class="header">
-    <el-menu :default-active="activePath" class="el-menu-demo" mode="horizontal" @select="handleSelect" router>
+    <el-menu :default-active="activePath" mode="horizontal" @select="handleSelect" router>
       <li class="el-menu-item" @click="asideToggle">
         <i class="iconfont" :class="{'icon-dedent':!asideFolded,'icon-indent':asideFolded}"></i>
       </li>
@@ -16,7 +16,7 @@
         <img :src="userinfo.headPictureUrl" width="30" height="30" alt="">
       </div>
     </el-menu>
-    <el-dialog title="修改密码" :visible.sync="dialogVisible" width="500px" :append-to-body="true" @closed="resetForm">
+    <el-dialog title="修改密码" :visible.sync="dialogVisible" width="500px" append-to-body>
       <el-form :model="user" label-width="100px" size="medium">
         <el-form-item label="旧密码" required>
           <el-input v-model="user.user_oldpass" type="password"></el-input>
