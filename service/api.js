@@ -193,7 +193,7 @@ function createUser(req, res, next) {
       body: {
         user_nickname: req.body.user_nickname,
         user_name: req.body.user_name,
-        user_name: req.body.user_pass
+        user_pass: req.body.user_pass
       }
     }
     user.createUser(params, data => {
