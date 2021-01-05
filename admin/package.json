@@ -10,7 +10,7 @@
     "copy": "rm -rf ../yx_bms/src/main/resources/static/* && cp -r dist/. ../yx_bms/src/main/resources/static/"
   },
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "element-ui": "^2.4.5",
     "vue": "^2.5.17",
     "vue-localstorage": "^0.6.2",
